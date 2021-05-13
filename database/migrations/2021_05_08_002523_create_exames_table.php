@@ -15,7 +15,9 @@ class CreateExamesTable extends Migration
     {
         Schema::create('exames', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('avaliacao_id')->constrained('avaliacoes');
+            $table->foreignId('avaliacao_id')->constrained('avaliacoes')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
             $table->string('comentario')->nullable();
             $table->string('nome_arquivo');
             $table->timestamps();

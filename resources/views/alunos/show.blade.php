@@ -3,7 +3,7 @@
 @section('title', 'Página do Aluno')
 
 @section('content_header')
-      <h1>Perfil de {{ $cliente->nome }}</h1>
+      <h1>Perfil de {{ $aluno->nome }}</h1>
 
 @stop
 
@@ -16,23 +16,23 @@
           <div class="card-body box-profile">
             <div class="text-center">
               <img class="profile-user-img img-fluid img-circle" 
-              @if($cliente->foto)
-                src="{{ url('/storage/fotos/'. $cliente->id . '/' . $cliente->foto) }}" 
+              @if($aluno->foto)
+                src="{{ url('/storage/fotos/'. $aluno->id . '/' . $aluno->foto) }}" 
               @else
                 src="{{ url('/img/default.jpg') }}" 
               @endif
               alt="User profile picture">
             </div>
 
-            <h3 class="profile-username text-center">{{ $cliente->nome }}</h3>
+            <h3 class="profile-username text-center">{{ $aluno->nome }}</h3>
 
             <ul class="list-group list-group-unbordered mb-3">
               <li class="list-group-item">
-                <b>Cadastrado em</b> <a class="float-right">{{ date('d/m/Y, H:i', strtotime($cliente->created_at)) }}</a>
+                <b>Cadastrado em</b> <a class="float-right">{{ date('d/m/Y, H:i', strtotime($aluno->created_at)) }}</a>
               </li>
             </ul>
 
-            <a href="{{ route('clientes.edit', ['cliente'=>$cliente->id]) }}" class="btn btn-info btn-block">
+            <a href="{{ route('alunos.edit', ['aluno'=>$aluno->id]) }}" class="btn btn-info btn-block">
               <i class="fa fa-edit"></i> <b>Editar</b>
             </a>
           </div>
@@ -40,7 +40,37 @@
         </div>
         <!-- /.card -->
 
-         
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">Matriculado nas Turmas</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            @forelse ($turmas as $turma)
+
+              <a href="{{ route('turmas.show', ['turma'=>$turma->id]) }}">
+                <strong><i class="fas fa-book mr-1"></i> {{ $turma->nome }}</strong>
+              </a>
+
+              <p class="text-muted">
+                @foreach($turma->horarios as $horario)
+                  {{ $horario->dia_da_semana }}: {{ date('H:i', strtotime($horario->horario_inicio)) }} - {{ date('H:i', strtotime($horario->horario_fim)) }} 
+                  <br>
+                @endforeach
+              </p>
+
+              <hr>
+
+            @empty
+
+                <p class="text-muted">Não está cadastrado em nenhuma turma</p>
+
+            @endforelse
+            
+
+          </div>
+          <!-- /.card-body -->
+        </div>
         
         
       </div>
@@ -48,7 +78,7 @@
       <div class="col-md-9">
 
         <!-- Tabela de avaliações -->
-        
+        @include('alunos.avaliacoes.list')
 
         <div class="card">
           <div class="card-header">
@@ -60,37 +90,37 @@
               <tbody>
                 <tr>
                   <td class="td-title"><strong>Nome</strong></td>
-                  <td>{{ $cliente->nome }}</td>
+                  <td>{{ $aluno->nome }}</td>
                 </tr>
 
                 <tr>
                   <td><strong>E-mail</strong></td>
-                  <td>{{ $cliente->email }}</td>
+                  <td>{{ $aluno->email }}</td>
                 </tr>
                 
                 <tr>
                   <td><strong>Data de Nascimento</strong></td>
-                  <td>{{ date('d/m/Y', strtotime($cliente->data_nascimento)) }} - ({{ $cliente->getIdade() }} anos)</td>
+                  <td>{{ date('d/m/Y', strtotime($aluno->data_nascimento)) }} - ({{ $aluno->getIdade() }} anos)</td>
                 </tr>
 
                 <tr>
                   <td><strong>Profissão</strong></td>
-                  <td>{{ $cliente->profissao }}</td>
+                  <td>{{ $aluno->profissao }}</td>
                 </tr>
 
                 <tr>
                   <td><strong>Sexo</strong></td>
-                  <td>{{ $cliente->sexo }}</td>
+                  <td>{{ $aluno->sexo }}</td>
                 </tr>
 
                 <tr>
                   <td><strong>Telefone</strong></td>
-                  <td>{{ $cliente->telefone }}</td>
+                  <td>{{ $aluno->telefone }}</td>
                 </tr>
 
                 <tr>
                   <td><strong>Telefone 2</strong></td>
-                  <td>{{ $cliente->telefone2 }}</td>
+                  <td>{{ $aluno->telefone2 }}</td>
                 </tr>
 
               </tbody>
@@ -109,37 +139,37 @@
               <tbody>
                 <tr>
                   <td class="td-title"><strong>CEP</strong></td>
-                  <td>{{ $cliente->cep }}</td>
+                  <td>{{ $aluno->cep }}</td>
                 </tr>
 
                 <tr>
                   <td><strong>Rua</strong></td>
-                  <td>{{ $cliente->endereco_rua }}</td>
+                  <td>{{ $aluno->endereco_rua }}</td>
                 </tr>
                 
                 <tr>
                   <td><strong>Número</strong></td>
-                  <td>{{ $cliente->endereco_numero }}</td>
+                  <td>{{ $aluno->endereco_numero }}</td>
                 </tr>
 
                 <tr>
                   <td><strong>Complemento</strong></td>
-                  <td>{{ $cliente->endereco_complemento }}</td>
+                  <td>{{ $aluno->endereco_complemento }}</td>
                 </tr>
 
                 <tr>
                   <td><strong>Estado</strong></td>
-                  <td>{{ $cliente->endereco_estado }}</td>
+                  <td>{{ $aluno->endereco_estado }}</td>
                 </tr>
 
                 <tr>
                   <td><strong>Cidade</strong></td>
-                  <td>{{ $cliente->endereco_cidade }}</td>
+                  <td>{{ $aluno->endereco_cidade }}</td>
                 </tr>
 
                 <tr>
                   <td><strong>Bairro</strong></td>
-                  <td>{{ $cliente->endereco_bairro }}</td>
+                  <td>{{ $aluno->endereco_bairro }}</td>
                 </tr>
                 
               </tbody>
@@ -158,12 +188,12 @@
               <tbody>
                 <tr>
                   <td class="td-title"><strong>RG</strong></td>
-                  <td class="td-content">{{ $cliente->rg }}</td>
+                  <td class="td-content">{{ $aluno->rg }}</td>
                 </tr>
 
                 <tr>
                   <td><strong>CPF</strong></td>
-                  <td>{{ $cliente->cpf }}</td>
+                  <td>{{ $aluno->cpf }}</td>
                 </tr>
                 
               </tbody>

@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Cliente extends Model
+class Aluno extends Model
 {
     use HasFactory;
 
-    protected $table = 'clientes';
+    protected $table = 'alunos';
 
     protected $fillable = [
         'nome', 'email', 'data_nascimento', 'profissao', 'sexo', 'telefone','telefone2', 
@@ -20,11 +20,11 @@ class Cliente extends Model
 
     // Relacionamentos
     public function avaliacoes() {
-        return $this->hasMany(Avaliacao::class, 'cliente_id');
+        return $this->hasMany(Avaliacao::class, 'aluno_id');
     }
 
     public function turmas() {
-        return $this->belongsToMany(Turma::class, 'clientes_turmas', 'cliente_id', 'turma_id');
+        return $this->belongsToMany(Turma::class, 'alunos_turmas', 'aluno_id', 'turma_id');
     }
 
     // Métodos

@@ -11,9 +11,15 @@ class Avaliacao extends Model
 
     protected $table = 'avaliacoes';
 
+    protected $fillable = [
+        'aluno_id', 'peso', 'altura', 'atividade_fisica', 'objetivo', 'conhece_ou_praticou', 'medicamentos',
+        'queixa_principal', 'historia_medica_atual', 'historia_medica_passada', 'fatores_que_melhoram',
+        'fatores_que_pioram', 'observacao'
+    ];
+
     // Relacionamentos
-    public function cliente() {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
+    public function aluno() {
+        return $this->belongsTo(Aluno::class, 'aluno_id');
     }
 
     public function exames() {

@@ -3,15 +3,16 @@
 @section('title', 'Criando Avaliação')
 
 @section('content_header')
-      <h1>Nova avaliação para {{ $client->nome }}</h1>
+      <h1>Nova avaliação para {{ $aluno->nome }}</h1>
 
 @stop
 
 @section('content')
+    @include('parciais.validation-errors')
 
-    <form action="{{ route('avaliation.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('avaliacoes.store') }}" method="post" enctype="multipart/form-data">
     @csrf
-    <input type="hidden" name="client_id" value="{{ $client->id }}">
+    <input type="hidden" name="aluno_id" value="{{ $aluno->id }}" hidden>
 
         <div class="row">
             <div class="col-md-12">
@@ -176,7 +177,7 @@
 
                 <div class="col-md-12 mb-4">
                     <div class="card-footer">
-                        <a class="btn btn-default" href="{{ route('client.show', ['client'=>$client->id]) }}">
+                        <a class="btn btn-default" href="{{ route('alunos.show', ['aluno'=>$aluno->id]) }}">
                             <i class="fa fa-arrow-left"></i> Voltar
                         </a>
 
@@ -195,42 +196,8 @@
 
 @section('css')
 
-<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
-
 @stop
 
 @section('js')
-
-<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-
-<script>
-    FilePond.registerPlugin(
-      FilePondPluginImagePreview,
-      FilePondPluginImageExifOrientation,
-      FilePondPluginFileValidateSize,
-      FilePondPluginImageEdit
-    );
-
-    const inputElement = document.querySelector('input[id="inputExames"]');
-
-    FilePond.create(inputElement);
-
-    FilePond.setOptions({
-        server: {
-            url: '/upload/exams',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-        } 
-    });
-
-</script>
 
 @stop

@@ -11,7 +11,7 @@
 @include('parciais.validation-errors')
 
 <div class="row">
-    <form class="row col-md-12" action="{{ route('clientes.store') }}" method="post" enctype="multipart/form-data">
+    <form class="row col-md-12" action="{{ route('alunos.store') }}" method="post" enctype="multipart/form-data">
     @csrf
         <!-- left column -->
         <div class="col-md-6">
@@ -164,7 +164,7 @@
 
         <div class="col-md-12 mb-5">
             <div class="card-footer">
-                <a href="{{ route('clientes.index') }}" class="btn btn-default">
+                <a href="{{ route('alunos.index') }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i> Voltar
                 </a>
                 <button type="submit" class="btn btn-primary float-right">

@@ -14,8 +14,8 @@ class Turma extends Model
     protected $fillable = ['nome', 'descricao'];
 
     // Relacionamentos
-    public function clientes() {
-        return $this->belongsToMany(Cliente::class, 'clientes_turmas', 'turma_id', 'cliente_id');
+    public function alunos() {
+        return $this->belongsToMany(Aluno::class, 'alunos_turmas', 'turma_id', 'aluno_id');
     }
 
     public function horarios() {

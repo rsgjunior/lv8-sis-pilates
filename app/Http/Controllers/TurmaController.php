@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTurmaRequest;
-use App\Models\Cliente;
+use App\Models\Aluno;
 use App\Models\Turma;
 use Illuminate\Http\Request;
 
@@ -52,11 +52,11 @@ class TurmaController extends Controller
     public function show($id)
     {
         $turma = Turma::findOrFail($id);
-        $clientes = Cliente::all();
+        $alunos = Aluno::all();
 
         return view('turmas.show', [
             'turma' => $turma,
-            'clientes' => $clientes
+            'alunos' => $alunos
         ]);
     }
 
@@ -68,7 +68,11 @@ class TurmaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $turma = Turma::findOrFail($id);
+
+        return view('turmas.edit', [
+            'turma' => $turma
+        ]);
     }
 
     /**
@@ -78,9 +82,13 @@ class TurmaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreTurmaRequest $request, $id)
     {
-        //
+        $turma = Turma::findOrFail($id);
+
+        $turma->update($request->validated());
+
+        return redirect()->route('turmas.show', ['turma' => $turma->id])->with('success', 'Dados da turma atualizados');
     }
 
     /**
@@ -91,12 +99,14 @@ class TurmaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Turma::findOrFail($id)->delete();
+
+        return back()->with('msg', 'Turma removida com sucesso');
     }
 
     public function matricular(Request $request) {
         foreach($request->alunos_id as $id) {
-            $aluno = Cliente::findOrFail($id);
+            $aluno = Aluno::findOrFail($id);
 
             // Verifica se esse aluno já está matriculado na turma
             foreach($aluno->turmas as $turma) {
@@ -113,10 +123,10 @@ class TurmaController extends Controller
         return redirect()->back()->with('success', 'Matricula feita com sucesso');
     }
 
-    public function desmatricular($turma_id, $cliente_id) {
-        $cliente = Cliente::findOrFail($cliente_id);
+    public function desmatricular($turma_id, $aluno_id) {
+        $aluno = Aluno::findOrFail($aluno_id);
 
-        $cliente->turmas()->detach($turma_id);
+        $aluno->turmas()->detach($turma_id);
 
         return redirect()->back()->with('msg', 'Aluno desmatriculado');
     }

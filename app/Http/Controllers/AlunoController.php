@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreClienteRequest;
+use App\Http\Requests\StoreAlunoRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\Cliente;
+use App\Models\Aluno;
 
-class ClienteController extends Controller
+class AlunoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,15 +20,15 @@ class ClienteController extends Controller
         $pesquisa = request('pesquisa');
 
         if ($pesquisa) {
-            $clientes = Cliente::where([
+            $alunos = Aluno::where([
                 ['nome', 'like', '%' . $pesquisa . '%']
             ])->paginate(15);
         } else {
-            $clientes = Cliente::orderBy('nome')->paginate(15);
+            $alunos = Aluno::orderBy('nome')->paginate(15);
         }
 
-        return view('clientes.index', [
-            'clientes' => $clientes,
+        return view('alunos.index', [
+            'alunos' => $alunos,
             'pesquisa' => $pesquisa
         ]);
     }
@@ -40,7 +40,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('clientes.create');
+        return view('alunos.create');
     }
 
     /**
@@ -49,9 +49,9 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Requests\StoreClientRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClienteRequest $request)
+    public function store(StoreAlunoRequest $request)
     {
-        $cliente = Cliente::create($request->validated());
+        $aluno = Aluno::create($request->validated());
 
         if($request->hasFile('foto')){
             $nome_original = $request->foto->getClientOriginalName();
@@ -59,14 +59,14 @@ class ClienteController extends Controller
             $data = date('d-m-y H:i');
             $nome_arquivo = md5($nome_original . $data) . '.' . $extensao;
             
-            $request->foto->storeAs('public/fotos/' . $cliente->id, $nome_arquivo);
+            $request->foto->storeAs('public/fotos/' . $aluno->id, $nome_arquivo);
 
-            $cliente->update([
+            $aluno->update([
                 'foto' => $nome_arquivo
             ]);
         }
 
-        return redirect()->route('clientes.show', ['cliente' => $cliente->id])->with('success', 'Aluno cadastrado com sucesso!');
+        return redirect()->route('alunos.show', ['aluno' => $aluno->id])->with('success', 'Aluno cadastrado com sucesso!');
     }
 
     /**
@@ -77,10 +77,14 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        $cliente = Cliente::findOrFail($id);
+        $aluno = Aluno::findOrFail($id);
+        $turmas = $aluno->turmas;
+        $avaliacoes = $aluno->avaliacoes()->paginate(3);
 
-        return view('clientes.show', [
-            'cliente' => $cliente
+        return view('alunos.show', [
+            'aluno' => $aluno,
+            'turmas' => $turmas,
+            'avaliacoes' => $avaliacoes
         ]);
     }
 
@@ -92,10 +96,10 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        $cliente = Cliente::findOrFail($id);
+        $aluno = Aluno::findOrFail($id);
 
-        return view('clientes.edit', [
-            'cliente' => $cliente
+        return view('alunos.edit', [
+            'aluno' => $aluno
         ]);
     }
 
@@ -106,14 +110,14 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreClienteRequest $request, $id)
+    public function update(StoreAlunoRequest $request, $id)
     {
-        $cliente = Cliente::findOrFail($id);
+        $aluno = Aluno::findOrFail($id);
 
-        $cliente->update($request->validated());
+        $aluno->update($request->validated());
 
         if($request->removerFoto != null) {
-            $cliente->update([
+            $aluno->update([
                 'foto' => null
             ]);
         }
@@ -124,14 +128,14 @@ class ClienteController extends Controller
             $data = date('d-m-y H:i');
             $nome_arquivo = md5($nome_original . $data) . '.' . $extensao;
             
-            $request->foto->storeAs('public/fotos/' . $cliente->id, $nome_arquivo);
+            $request->foto->storeAs('public/fotos/' . $aluno->id, $nome_arquivo);
 
-            $cliente->update([
+            $aluno->update([
                 'foto' => $nome_arquivo
             ]);
         }
 
-        return redirect()->route('clientes.show', ['cliente' => $cliente->id])->with('success', 'Cadastro atualizado com sucesso!');
+        return redirect()->route('alunos.show', ['aluno' => $aluno->id])->with('success', 'Cadastro atualizado com sucesso!');
     }
 
     /**
@@ -142,7 +146,7 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        Cliente::findOrFail($id)->delete();
+        Aluno::findOrFail($id)->delete();
 
         return redirect()->back()->with('msg', 'Usuário deletado');
     }

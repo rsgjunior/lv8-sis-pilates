@@ -15,7 +15,9 @@ class CreateAvaliacoesTable extends Migration
     {
         Schema::create('avaliacoes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
+            $table->foreignId('aluno_id')->constrained('alunos')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
             $table->float('peso')->nullable();
             $table->float('altura')->nullable();
             $table->string('atividade_fisica', 50)->nullable();

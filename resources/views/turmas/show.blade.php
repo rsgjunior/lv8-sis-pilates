@@ -26,7 +26,7 @@
                   class="btn btn-outline-success" data-toggle="modal" data-target="#matricularModal">
                 <i class="fas fa-plus-circle"></i> Matricular Aluno</a></small>
             </h4>
-            @php($qtdAlunos = count($turma->clientes))
+            @php($qtdAlunos = count($turma->alunos))
             @if($qtdAlunos > 0)
               <p>Atualmente há {{ $qtdAlunos }} alunos nessa turma:</p>
             @endif
@@ -56,23 +56,23 @@
               </tr>
               </thead>
               <tbody>
-                @forelse ($turma->clientes as $cliente)
+                @forelse ($turma->alunos as $aluno)
 
                   <tr>
                     <td>
                       <img 
                         class="table-img"
-                        @if($cliente->foto)
-                          src="{{ url('/storage/fotos/'. $cliente->id . '/' . $cliente->foto) }}" 
+                        @if($aluno->foto)
+                          src="{{ url('/storage/fotos/'. $aluno->id . '/' . $aluno->foto) }}" 
                         @else
                           src="{{ url('/img/default.jpg') }}" 
                         @endif
                       >
                     </td>
-                    <td><a href="{{ route('clientes.show', ['cliente'=>$cliente->id]) }}">{{ $cliente->nome }}</a></td>
-                    <td>{{ date('d/m/Y', strtotime($cliente->pivot->created_at)) }}</td>
+                    <td><a href="{{ route('alunos.show', ['aluno'=>$aluno->id]) }}">{{ $aluno->nome }}</a></td>
+                    <td>{{ date('d/m/Y', strtotime($aluno->pivot->created_at)) }}</td>
                     <td>
-                      <a class="btn btn-info btn-sm" href="{{ route('clientes.show', ['cliente'=>$cliente->id]) }}">
+                      <a class="btn btn-info btn-sm" href="{{ route('alunos.show', ['aluno'=>$aluno->id]) }}">
                         <i class="fa fa-eye"></i>
                       </a>
                       <form class="d-inline" action="" method="post">
@@ -126,7 +126,7 @@
                         <th style="width:50%">{{ $horario->dia_da_semana }}</th>
                         <td>{{ date('H:i', strtotime($horario->horario_inicio)) }} - {{ date('H:i', strtotime($horario->horario_fim)) }}</td>
                         <td>
-                          <form action="" method="post">
+                          <form action="{{ route('horarios.destroy', ['horario_id'=> $horario->id]) }}" method="post">
                             @csrf
                             @method('DELETE')
                             
@@ -154,7 +154,7 @@
   </div>
 
   @include('turmas.matricular-modal')
-  
+  @include('turmas.horarios.create-modal')
 
 @stop
 

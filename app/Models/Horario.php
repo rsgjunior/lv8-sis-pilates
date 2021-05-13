@@ -11,6 +11,8 @@ class Horario extends Model
 
     protected $table = 'horarios';
 
+    protected $fillable = ['turma_id', 'dia_da_semana', 'horario_inicio', 'horario_fim'];
+
     // Relacionamentos
     public function turma() {
         return $this->belongsTo(Turma::class, 'turma_id');

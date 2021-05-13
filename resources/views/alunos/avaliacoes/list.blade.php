@@ -18,21 +18,21 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($avaliations as $avaliation)
+        @foreach ($avaliacoes as $avaliacao)
           <tr>
-            <td>{{ $avaliation->id }}</td>
-            <td><a href="">{{ $avaliation->nome }}</a>Avaliação {{ $loop->index }}</td>
-            <td>{{ date('d/m/Y, h:i', strtotime($avaliation->created_at)) }}</td>
+            <td>{{ $avaliacao->id }}</td>
+            <td><a href="{{ route('avaliacoes.show', ['avaliacao'=>$avaliacao->id]) }}">Avaliação {{ $loop->index }}</a></td>
+            <td>{{ date('d/m/Y, H:i', strtotime($avaliacao->created_at)) }}</td>
             <td>
-              <a class="d-inline-block btn btn-primary btn-sm" href="{{ route('avaliation.show', ['avaliation'=>$avaliation->id]) }}">
+              <a class="d-inline-block btn btn-primary btn-sm" href="{{ route('avaliacoes.show', ['avaliacao'=>$avaliacao->id]) }}">
                 <i class="fa fa-eye"></i> Ver
               </a>
 
-              <a class="d-inline-block btn btn-info btn-sm" href="http://">
+              <a class="d-inline-block btn btn-info btn-sm" href="{{ route('avaliacoes.edit', ['avaliacao'=>$avaliacao->id]) }}">
                 <i class="fa fa-edit"></i> Editar
               </a>
 
-              <form class="d-inline-block" action="{{ route('avaliation.destroy', ['avaliation'=>$avaliation->id]) }}" method="post">
+              <form class="d-inline-block" action="{{ route('avaliacoes.destroy', ['avaliacao'=>$avaliacao->id]) }}" method="post">
               @csrf
               @method('DELETE')
                 <button type="submit" class="btn btn-danger btn-sm">
@@ -48,12 +48,12 @@
     </table>
   </div>
   <div class="card-footer">
-    <a href="{{ route('avaliation.create', ['idClient'=>$client->id]) }}" class="btn btn-primary btn-sm">
+    <a href="{{ route('avaliacoes.create', ['aluno_id'=> $aluno->id]) }}" class="btn btn-primary btn-sm">
       <i class="fa fa-plus-circle"></i> Nova Avaliação
     </a>
 
     <ul class="pagination pagination-sm float-right mb-0">
-      {{ $avaliations->links() }}
+      {{ $avaliacoes->links() }}
     </ul>
   </div>
   <!-- /.card-body -->

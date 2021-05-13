@@ -20,8 +20,8 @@
                             <label>Procurar</label>
               
                             <select class="select2 select2-hidden-accessible" name="alunos_id[]" multiple="multiple" data-placeholder="Selecione os alunos" style="width: 100%;" data-select2-id="7" tabindex="-1" aria-hidden="true">
-                                @foreach ($clientes as $cliente)
-                                <option data-select2-id="{{ $cliente->id }}" value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                                @foreach ($alunos as $aluno)
+                                <option data-select2-id="{{ $aluno->id }}" value="{{ $aluno->id }}">{{ $aluno->nome }}</option>
                                 @endforeach
                                 
                                 

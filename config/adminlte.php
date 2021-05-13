@@ -237,7 +237,7 @@ return [
         ['header' => 'MENU'],
         [
             'text' => 'Alunos',
-            'url'  => 'clientes',
+            'url'  => 'alunos',
             'icon' => 'fas fa-fw fa-users',
         ],
         [

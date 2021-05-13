@@ -3,7 +3,7 @@
 @section('title', 'Editar uma Turma')
 
 @section('content_header')
-    <h1>Turma: {{ $pilatesClass->nome }}</h1>
+    <h1>Turma: {{ $turma->nome }}</h1>
 @stop
 
 @section('content')
@@ -17,18 +17,18 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form role="form" action="{{ route('pilatesclass.update', ['pilatesclass' => $pilatesClass->id]) }}" method="post">
+        <form role="form" action="{{ route('turmas.update', ['turma' => $turma->id]) }}" method="post">
             @csrf
             @method('PUT')
             <div class="card-body">
                 <div class="form-group">
                     <label for="inputNome">Nome</label>
-                    <input type="text" class="form-control" id="inputNome" name="nome" value="{{ $pilatesClass->nome }}">
+                    <input type="text" class="form-control" id="inputNome" name="nome" value="{{ $turma->nome }}">
                 </div>
 
                 <div class="form-group">
                   <label for="inputDesc">Descrição</label>
-                  <textarea class="form-control" name="descricao" id="inputDesc" cols="30" rows="5">{{ $pilatesClass->descricao }}</textarea>
+                  <textarea class="form-control" name="descricao" id="inputDesc" cols="30" rows="5">{{ $turma->descricao }}</textarea>
               </div>
             </div>
           <!-- /.card-body -->

@@ -1,8 +1,8 @@
 <!-- The Modal -->
 <div class="modal fade" id="createTimeClassModal">
-    <form action="{{ route('timeclass.store') }}" method="post">
+    <form action="{{ route('horarios.store') }}" method="post">
         @csrf
-        <input type="text" name="pilates_class_id" value="{{ $pilatesClass->id }}" hidden>
+        <input type="text" name="turma_id" value="{{ $turma->id }}" hidden>
         
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -18,14 +18,14 @@
                             <div class="form-group">
                                 <label for="inputDia">Dias da semana</label>
 
-                                <select class="select2 select2-hidden-accessible" name="dia_da_semana[]" multiple="multiple" data-placeholder="Selecione os dias da semana" style="width: 100%">
-                                    <option value="Domingo">Domingo</option>
+                                <select class="select2 select2-hidden-accessible" name="dias_da_semana[]" multiple="multiple" data-placeholder="Selecione os dias da semana" style="width: 100%">
                                     <option value="Segunda-Feira">Segunda-Feira</option>
                                     <option value="Terça-Feira">Terça-Feira</option>
                                     <option value="Quarta-Feira">Quarta-Feira</option>
                                     <option value="Quinta-Feira">Quinta-Feira</option>
                                     <option value="Sexta-Feira">Sexta-Feira</option>
                                     <option value="Sábado">Sábado</option>
+                                    <option value="Domingo">Domingo</option>
                                 </select>
                             </div>
                             
