@@ -4,15 +4,25 @@
             <h3 class="card-title">Exames Complementares</h3>
         </div>
 
-        <div class="card-body" style="display: block;">
-            <div class="row">
-                @forelse ($avaliation->exams as $exam)
-                    <img src="{{ url('/storage/exames/' . $exam->id. '/' . $exam->filename)}}" alt="" >
+        <div class="card-body">
+            
+                
+                @forelse ($avaliacao->exames as $exame)
+                <div class="row">
+                    <div class="callout callout-info">
+                        <h5>Exame {{ $loop->index }}</h5>
+                        <img class="col-md-6" src="{{ url('/storage/exames/' . $exame->id. '/' . $exame->nome_arquivo)}}">
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="" id="" cols="30" rows="10">{{ $exame->comentario }}</textarea>
+                        </div>
+                    </div>
+                    
+                </div>    
                 @empty
                     <p class="text-muted">Nenhum exame complementar cadastrado</p> 
                 @endforelse
                 
-            </div>
+            
         </div>
     </div>
 </div>

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAvaliacaoRequest;
 use App\Http\Requests\UpdateAvaliacaoRequest;
 use App\Models\Aluno;
 use App\Models\Avaliacao;
+use App\Models\Exame;
 use Illuminate\Http\Request;
 
 class AvaliacaoController extends Controller
@@ -33,6 +34,23 @@ class AvaliacaoController extends Controller
     public function store(StoreAvaliacaoRequest $request)
     {
         $avaliacao = Avaliacao::create($request->validated());
+
+        // Upload dos arquivos de exame
+        if($request->hasFile('exames')) {
+            foreach($request->exames as $exame) {
+                $nome_original = $exame->getClientOriginalName();
+                $extensao = $exame->getClientOriginalExtension();
+                $data = date('d-m-y H:i');
+                $nome_arquivo = md5($nome_original . $data) . '.' . $extensao;
+
+                $exameNoBanco = Exame::create([
+                    'avaliacao_id' => $avaliacao->id,
+                    'nome_arquivo' => $nome_arquivo
+                ]);
+
+                $exame->storeAs('public/exames/' . $exameNoBanco->id, $nome_arquivo);
+            }
+        }
 
         return redirect()->route('alunos.show', ['aluno' => $request->aluno_id]);
     }

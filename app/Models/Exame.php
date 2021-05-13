@@ -11,6 +11,8 @@ class Exame extends Model
 
     protected $table = 'exames';
 
+    protected $fillable = ['avaliacao_id', 'nome_arquivo', 'comentario'];
+
     // Relacionamentos
     public function avaliacao() {
         return $this->belongsTo(Avaliacao::class, 'avaliacao_id');

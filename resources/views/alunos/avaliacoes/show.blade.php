@@ -183,7 +183,7 @@
 </div>
 
 <div class="row">
-    
+    @include('alunos.avaliacoes.exames.show')
 </div>
 
 @stop
