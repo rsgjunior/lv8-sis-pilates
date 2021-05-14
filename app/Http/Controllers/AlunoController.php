@@ -121,7 +121,7 @@ class AlunoController extends Controller
                 'foto' => null
             ]);
         }
-
+        
         if($request->hasFile('foto')){
             $nome_original = $request->foto->getClientOriginalName();
             $extensao = $request->foto->getClientOriginalExtension();

@@ -157,19 +157,20 @@
             <div class="col-md-12">
                 <div class="card card-default">
                     <div class="card-header">
-                    <h3 class="card-title">Exames Complementares</h3> 
-                    <button id="addArquivo" class="btn btn-sm btn-primary float-right">Adicionar arquivo</button>
-        
+                        <h3 class="card-title">Exames Complementares</h3> 
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label for="inputExames">Selecionar os exames</label>
                                 <div class="input-group mb-3">
                                     <input type="file" class="form-control-file" name="exames[]" id="inputExames" data-max-file-size="3MB" data-max-files="10" multiple>
                                 </div>
+                            </div>
+                            <div id="appendExames" class="form-group col-md-12">
+                                
                             </div>
                         </div>
                     <!-- /.row -->
@@ -203,5 +204,5 @@
 @stop
 
 @section('js')
-
+    <script src="{{ url('js/exames.js') }}"></script>
 @stop

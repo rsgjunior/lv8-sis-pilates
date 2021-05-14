@@ -37,7 +37,7 @@ class AvaliacaoController extends Controller
 
         // Upload dos arquivos de exame
         if($request->hasFile('exames')) {
-            foreach($request->exames as $exame) {
+            foreach($request->exames as $key=>$exame) {
                 $nome_original = $exame->getClientOriginalName();
                 $extensao = $exame->getClientOriginalExtension();
                 $data = date('d-m-y H:i');
@@ -45,7 +45,8 @@ class AvaliacaoController extends Controller
 
                 $exameNoBanco = Exame::create([
                     'avaliacao_id' => $avaliacao->id,
-                    'nome_arquivo' => $nome_arquivo
+                    'nome_arquivo' => $nome_arquivo,
+                    'comentario' => $request->comentarios[$key]
                 ]);
 
                 $exame->storeAs('public/exames/' . $exameNoBanco->id, $nome_arquivo);

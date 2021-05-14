@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\AvaliacaoController;
+use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\TurmaController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/avaliacoes/{avaliacao}/edit', [AvaliacaoController::class, 'edit'])->name('avaliacoes.edit');
     Route::put('/avaliacoes/{avaliacao}', [AvaliacaoController::class, 'update'])->name('avaliacoes.update');
     Route::delete('/avaliacoes/{avaliacao}', [AvaliacaoController::class, 'destroy'])->name('avaliacoes.destroy');
+
+    // Rotas Calendário
+    Route::get('/calendario', [CalendarioController::class, 'index'])->name('calendario.index');
 });
 
 

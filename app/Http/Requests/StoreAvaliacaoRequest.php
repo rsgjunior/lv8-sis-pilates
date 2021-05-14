@@ -24,7 +24,7 @@ class StoreAvaliacaoRequest extends FormRequest
     public function rules()
     {
         return [
-            'aluno_id'                 => 'required',
+            'aluno_id'                  => 'required',
             'peso'                      => 'nullable|numeric',
             'altura'                    => 'nullable|numeric',
             'atividade_fisica'          => 'nullable|string',
@@ -37,6 +37,8 @@ class StoreAvaliacaoRequest extends FormRequest
             'historia_medica_passada'   => 'nullable|string',
             'fatores_que_melhoram'      => 'nullable|string',
             'observacao'                => 'nullable|string',
+            'exames'                    => 'nullable|array',
+            'comentarios'               => 'nullable|array'
         ];
     }
 }
