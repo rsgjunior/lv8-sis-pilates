@@ -59,7 +59,7 @@ class AlunoController extends Controller
             $data = date('d-m-y H:i');
             $nome_arquivo = md5($nome_original . $data) . '.' . $extensao;
             
-            $request->foto->storeAs('public/fotos/' . $aluno->id, $nome_arquivo);
+            $request->foto->storeAs('public/fotos/alunos/' . $aluno->id, $nome_arquivo);
 
             $aluno->update([
                 'foto' => $nome_arquivo

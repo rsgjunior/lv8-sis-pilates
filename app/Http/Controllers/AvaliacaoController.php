@@ -53,7 +53,8 @@ class AvaliacaoController extends Controller
             }
         }
 
-        return redirect()->route('alunos.show', ['aluno' => $request->aluno_id]);
+        return redirect()->route('avaliacoes.show', ['avaliacao' => $avaliacao->id])
+                         ->with('success', 'Avaliação criada com sucesso!');
     }
 
     /**

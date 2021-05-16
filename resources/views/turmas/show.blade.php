@@ -99,8 +99,10 @@
         <div class="row">
           <!-- accepted payments column -->
           <div class="col-6">
+
             <p class="lead">Informações sobre a turma:</p>
             <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+              Descrição:<br>
               {{ $turma->descricao }}
             </p>
 
@@ -121,9 +123,9 @@
             <div class="table-responsive">
               <table class="table">
                 <tbody>
-                @forelse ($turma->horarios as $horario)
+                @forelse ($horarios as $horario)
                     <tr>
-                        <th style="width:50%">{{ $horario->dia_da_semana }}</th>
+                        <th style="width:50%">{{ $horario->getDiaDaSemanaStr() }}</th>
                         <td>{{ date('H:i', strtotime($horario->horario_inicio)) }} - {{ date('H:i', strtotime($horario->horario_fim)) }}</td>
                         <td>
                           <form action="{{ route('horarios.destroy', ['horario_id'=> $horario->id]) }}" method="post">

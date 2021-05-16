@@ -18,7 +18,7 @@ class CreateHorariosTable extends Migration
             $table->foreignId('turma_id')->constrained('turmas')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
-            $table->string('dia_da_semana', 45);
+            $table->tinyInteger('dia_da_semana');
             $table->time('horario_inicio');
             $table->time('horario_fim');
             $table->timestamps();

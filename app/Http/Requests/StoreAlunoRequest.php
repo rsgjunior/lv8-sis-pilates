@@ -40,7 +40,7 @@ class StoreAlunoRequest extends FormRequest
             'endereco_bairro'       => 'nullable|string',
             'rg'                    => 'nullable|numeric|digits_between:5,14',
             'cpf'                   => 'nullable|numeric|digits:11',
-            'foto'                  => 'nullable'
+            'foto'                  => 'nullable|mimes:jpg,bmp,png'
         ];
     }
 }

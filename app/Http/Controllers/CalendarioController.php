@@ -2,50 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Acaronlex\LaravelCalendar\Calendar;
+use App\Models\Horario;
+use Illuminate\Support\Carbon;
 
 class CalendarioController extends Controller
 {
     public function index() {
-        $events = [];
+        $data_inicio = Carbon::today();
+        $data_fim = $data_inicio->copy()->addMonth();
 
-        $events[] = Calendar::event(
-            'Event One', //event title
-            false, //full day event?
-            '2021-05-11T0800', //start time (you can also use Carbon instead of DateTime)
-            '2021-05-12T0800', //end time (you can also use Carbon instead of DateTime)
-            0 //optionally, you can specify an event ID
-        );
+        $horarios = Horario::all();
 
-        $events[] = Calendar::event(
-            "Valentine's Day", //event title
-            true, //full day event?
-            new \DateTime('2021-05-14'), //start time (you can also use Carbon instead of DateTime)
-            new \DateTime('2021-05-14'), //end time (you can also use Carbon instead of DateTime)
-            'stringEventId' //optionally, you can specify an event ID
-        );
+        $eventos = [];
+
+        foreach($horarios as $horario) {
+            $eventos[] = Calendar::event(
+                $horario->turma->nome, // Titulo
+                false, // O dia todo?
+                Carbon::today(), // Data/Hora Inicio
+                Carbon::today(), // Data/Hora Fim
+                $horario->id, // ID (Opcional)
+                [
+                    'daysOfWeek' => [$horario->dia_da_semana], // Dia da Semana
+                    'startRecur' => $data_inicio,
+                    'endRecur' => $data_fim,
+                    'startTime' => $horario->horario_inicio,
+                    'endTime' => $horario->horario_fim
+                ]
+            );
+        }
 
         $calendar = new Calendar();
-                $calendar->addEvents($events)
-                ->setOptions([
-                    'locale' => 'pt',
-                    'firstDay' => 0,
-                    'displayEventTime' => true,
-                    'selectable' => true,
-                    'initialView' => 'timeGridWeek',
-                    'headerToolbar' => [
-                        'end' => 'today prev,next dayGridMonth timeGridWeek timeGridDay'
-                    ]
-                ]);
-                $calendar->setId('1');
-                $calendar->setCallbacks([
-                    'select' => 'function(selectionInfo){}',
-                    'eventClick' => 'function(event){}'
-                ]);
+
+        $calendar->addEvents($eventos)
+        ->setOptions([
+            'timeZone' => 'local',
+            'locale' => 'pt',
+            'firstDay' => 0,
+            'displayEventTime' => true,
+            'selectable' => true,
+            'initialView' => 'timeGridWeek',
+            'headerToolbar' => [
+                'end' => 'today prev,next dayGridMonth timeGridWeek timeGridDay'
+            ]
+        ]);
+
+        $calendar->setId('1');
+        $calendar->setCallbacks([
+            'select' => 'function(selectionInfo){}',
+            'eventClick' => 'function(event){}'
+        ]);
         
         return view('calendario.index', [
-            'calendario' => $calendar
+            'calendario' => $calendar,
+            'data_inicio' => $data_inicio,
+            'data_fim' => $data_fim
         ]);
 
     }

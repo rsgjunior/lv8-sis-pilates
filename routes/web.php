@@ -4,7 +4,9 @@ use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TurmaController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +35,11 @@ Route::group(['middleware' => 'auth'], function () {
     // Rotas Alunos
     Route::resource('/alunos', AlunoController::class);
 
+    // Rotas Professores
+    Route::resource('/professores', ProfessorController::class)->parameters([
+        'professores' => 'professor'
+    ]);    
+
     // Rotas Turmas
     Route::resource('/turmas', TurmaController::class)->except(['create']);
     Route::post('/turmas/matricular', [TurmaController::class, 'matricular'])->name('turmas.matricular');
@@ -44,12 +51,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/horarios/{horario_id}', [HorarioController::class, 'destroy'])->name('horarios.destroy');
     
     // Rotas Avaliações
+    Route::resource('/avaliacoes', AvaliacaoController::class)->except(['index', 'create'])->parameters([
+        'avaliacoes' => 'avaliacao'
+    ]);
     Route::get('/avaliacoes/create/{aluno_id}', [AvaliacaoController::class, 'create'])->name('avaliacoes.create');
-    Route::post('/avaliacoes', [AvaliacaoController::class, 'store'])->name('avaliacoes.store');
-    Route::get('/avaliacoes/{avaliacao}', [AvaliacaoController::class, 'show'])->name('avaliacoes.show');
-    Route::get('/avaliacoes/{avaliacao}/edit', [AvaliacaoController::class, 'edit'])->name('avaliacoes.edit');
-    Route::put('/avaliacoes/{avaliacao}', [AvaliacaoController::class, 'update'])->name('avaliacoes.update');
-    Route::delete('/avaliacoes/{avaliacao}', [AvaliacaoController::class, 'destroy'])->name('avaliacoes.destroy');
 
     // Rotas Calendário
     Route::get('/calendario', [CalendarioController::class, 'index'])->name('calendario.index');

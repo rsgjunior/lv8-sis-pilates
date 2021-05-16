@@ -19,13 +19,13 @@
                                 <label for="inputDia">Dias da semana</label>
 
                                 <select class="select2 select2-hidden-accessible" name="dias_da_semana[]" multiple="multiple" data-placeholder="Selecione os dias da semana" style="width: 100%">
-                                    <option value="Segunda-Feira">Segunda-Feira</option>
-                                    <option value="Terça-Feira">Terça-Feira</option>
-                                    <option value="Quarta-Feira">Quarta-Feira</option>
-                                    <option value="Quinta-Feira">Quinta-Feira</option>
-                                    <option value="Sexta-Feira">Sexta-Feira</option>
-                                    <option value="Sábado">Sábado</option>
-                                    <option value="Domingo">Domingo</option>
+                                    <option value="0">Domingo</option>
+                                    <option value="1">Segunda-Feira</option>
+                                    <option value="2">Terça-Feira</option>
+                                    <option value="3">Quarta-Feira</option>
+                                    <option value="4">Quinta-Feira</option>
+                                    <option value="5">Sexta-Feira</option>
+                                    <option value="6">Sábado</option>
                                 </select>
                             </div>
                             

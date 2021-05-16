@@ -234,11 +234,16 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        ['header' => 'MENU'],
+        ['header' => 'PILATES'],
         [
             'text' => 'Alunos',
             'url'  => 'alunos',
             'icon' => 'fas fa-fw fa-users',
+        ],
+        [
+            'text' => 'Professores',
+            'url'  => 'professores',
+            'icon' => 'fas fa-fw fa-user-tie',
         ],
         [
             'text' => 'Turmas',

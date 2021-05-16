@@ -53,10 +53,12 @@ class TurmaController extends Controller
     {
         $turma = Turma::findOrFail($id);
         $alunos = Aluno::all();
+        $horarios = $turma->horarios()->orderBy('dia_da_semana')->get();
 
         return view('turmas.show', [
             'turma' => $turma,
-            'alunos' => $alunos
+            'alunos' => $alunos,
+            'horarios' => $horarios
         ]);
     }
 
