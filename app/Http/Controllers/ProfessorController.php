@@ -105,9 +105,27 @@ class ProfessorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreProfessorRequest $request, $id)
     {
-        //
+        $professor = Professor::findOrFail($id);
+
+        $professor->update($request->validated());
+
+        if($request->hasFile('foto')){
+            $nome_original = $request->foto->getClientOriginalName();
+            $extensao = $request->foto->getClientOriginalExtension();
+            $data = date('d-m-y H:i');
+            $nome_arquivo = md5($nome_original . $data) . '.' . $extensao;
+            
+            $request->foto->storeAs('public/fotos/professores/' . $professor->id, $nome_arquivo);
+
+            $professor->update([
+                'foto' => $nome_arquivo
+            ]);
+        }
+
+        return redirect()->route('professores.show', ['professor' => $professor->id])
+                         ->with('success', 'Cadastrado atualizado com sucesso');
     }
 
     /**
@@ -118,7 +136,9 @@ class ProfessorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Professor::findOrFail($id)->delete();
+
+        return redirect()->route('professores.index')->with('msg', 'Cadastro deletado com sucesso');
     }
 
     public function alocarNaTurma() {
