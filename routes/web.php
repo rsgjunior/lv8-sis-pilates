@@ -38,7 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Rotas Professores
     Route::resource('/professores', ProfessorController::class)->parameters([
         'professores' => 'professor'
-    ]);    
+    ]);
+    Route::post('/professores/alocar', [ProfessorController::class, 'alocarNaTurma'])->name('professores.alocar');    
 
     // Rotas Turmas
     Route::resource('/turmas', TurmaController::class)->except(['create']);

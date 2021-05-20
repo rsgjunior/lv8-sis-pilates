@@ -100,7 +100,7 @@
                 
                 <tr>
                   <td><strong>Data de Nascimento</strong></td>
-                  <td>{{ date('d/m/Y', strtotime($aluno->data_nascimento)) }} - ({{ $aluno->getIdade() }} anos)</td>
+                  <td>{{ date('d/m/Y', strtotime($aluno->data_nascimento)) }} - ({{ $aluno->idade }} anos)</td>
                 </tr>
 
                 <tr>

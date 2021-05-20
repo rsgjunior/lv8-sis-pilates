@@ -28,7 +28,13 @@ class Aluno extends Model
     }
 
     // Métodos
-    public function getIdade(){
+    public function getIdadeAttribute(){
         return Carbon::parse($this->data_nascimento)->age;
+    }
+
+    public function getFotoUrlAttribute() {
+        if($this->foto) return config('foto.foto.aluno_path') . $this->id . '/' . $this->foto;
+
+        return config('foto.foto.default_url');
     }
 }

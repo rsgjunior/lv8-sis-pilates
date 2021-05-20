@@ -42,12 +42,11 @@
 
         <div class="card card-default">
           <div class="card-header">
-            <h3 class="card-title">Matriculado nas Turmas</h3>
+            <h3 class="card-title">Professor(a) na(s) Turma(s)</h3>
           </div>
           <!-- /.card-header -->
-          {{-- 
           <div class="card-body">
-            @forelse ($turmas as $turma)
+            @forelse ($professor->turmas as $turma)
 
               <a href="{{ route('turmas.show', ['turma'=>$turma->id]) }}">
                 <strong><i class="fas fa-book mr-1"></i> {{ $turma->nome }}</strong>
@@ -64,13 +63,12 @@
 
             @empty
 
-                <p class="text-muted">Não está cadastrado em nenhuma turma</p>
+                <p class="text-muted">Não é professor em nenhuma turma</p>
 
             @endforelse
             
 
           </div>
-          --}}
           <!-- /.card-body -->
         </div>
         
@@ -99,12 +97,12 @@
                 
                 <tr>
                   <td><strong>Data de Nascimento</strong></td>
-                  <td>{{ date('d/m/Y', strtotime($professor->data_nascimento)) }} - ({{ $professor->getIdade() }} anos)</td>
+                  <td>{{ date('d/m/Y', strtotime($professor->data_nascimento)) }} - ({{ $professor->idade }} anos)</td>
                 </tr>
 
                 <tr>
-                  <td><strong>Profissão</strong></td>
-                  <td>{{ $professor->profissao }}</td>
+                  <td><strong>Formação</strong></td>
+                  <td>{{ $professor->formacao }}</td>
                 </tr>
 
                 <tr>
@@ -186,13 +184,8 @@
             <table class="table table-striped profile-table">             
               <tbody>
                 <tr>
-                  <td class="td-title"><strong>RG</strong></td>
-                  <td class="td-content"></td>
-                </tr>
-
-                <tr>
-                  <td><strong>CPF</strong></td>
-                  <td>{{ $professor->cpf }}</td>
+                  <td class="td-title"><strong>CPF</strong></td>
+                  <td class="td-content">{{ $professor->cpf }}</td>
                 </tr>
                 
               </tbody>

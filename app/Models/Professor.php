@@ -25,7 +25,31 @@ class Professor extends Model
     }
 
     // Métodos
-    public function getIdade(){
+    public function getIdadeAttribute() {
         return Carbon::parse($this->data_nascimento)->age;
+    }
+
+    public function getFormacaoAttribute() {
+        switch($this->profissao){
+            case 1:
+                $profissaoStr = "Fisioterapia";
+                break;
+            case 2:
+                $profissaoStr = "Terapia Ocupacional";
+                break;
+            case 3:
+                $profissaoStr = "Educação Física";
+                break;
+            default:
+                $profissaoStr = "Inválido";
+        }
+
+        return $profissaoStr;
+    }
+
+    public function getFotoUrlAttribute() {
+        if($this->foto) return config('foto.foto.professor_path') . $this->id . '/' . $this->foto;
+
+        return config('foto.foto.default_url');
     }
 }

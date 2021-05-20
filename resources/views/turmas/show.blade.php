@@ -28,7 +28,7 @@
             </h4>
             @php($qtdAlunos = count($turma->alunos))
             @if($qtdAlunos > 0)
-              <p>Atualmente há {{ $qtdAlunos }} alunos nessa turma:</p>
+              <p>Atualmente há {{ $qtdAlunos }} aluno(s) nessa turma:</p>
             @endif
           </div>
           <!-- /.col -->
@@ -46,7 +46,7 @@
         <!-- Table row -->
         <div class="row">
           <div class="col-12 table-responsive mb-3">
-            <table class="table table-striped">
+            <table class="table table-striped" {{ $qtdAlunos ? '' : 'hidden' }}>
               <thead>
               <tr>
                 <th>Foto</th>
@@ -86,7 +86,7 @@
                     </td>
                   </tr>
                 @empty
-                    <p>Não tem ninguém nesta turma</p>
+                    <p>Não tem ninguém matriculado nesta turma</p>
                 @endforelse
               
               </tbody>
@@ -99,14 +99,45 @@
         <div class="row">
           <!-- accepted payments column -->
           <div class="col-6">
+            <p class="lead">Professor</p>
 
-            <p class="lead">Informações sobre a turma:</p>
-            <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-              Descrição:<br>
+            @if($turma->professor)
+              <div class="card card-widget widget-user-2">
+                <div class="widget-user-header bg-olive">
+                  <div class="widget-user-image">
+                    <img class="img-circle elevation-2" src="{{ $turma->professor->fotoUrl }}" alt="User Avatar">
+                  </div>
+                  <a href="{{ route('professores.show', $turma->professor) }}">
+                    <h3 class="widget-user-username">{{ $turma->professor->nome }}</h3>
+                  </a>
+                  <h5 class="widget-user-desc">{{ $turma->professor->formacao }}</h5>
+                </div>
+                <div class="card-footer p-0">
+                  <ul class="nav flex-column">
+                    <li class="nav-item">
+                      <a class="nav-link">
+                        Followers <span class="float-right badge bg-danger">842</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            @else
+            <p class="text-muted well well-sm shadow-none">
+              Nenhum professor foi alocado para esta turma
+            </p>
+            <button class="btn btn-outline-success mb-4" data-toggle="modal" data-target="#alocarProfessor">
+              <i class="fas fa-plus-circle"></i> Alocar um Professor
+            </button>
+            @endif
+
+            <p class="lead">Informações sobre a turma</p>
+
+            <p class="text-muted well well-sm shadow-none">
               {{ $turma->descricao }}
             </p>
 
-            <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+            <p class="text-muted well well-sm shadow-none">
                 Criada em: {{ date('d/m/Y', strtotime($turma->created_at)) }}
             </p>
           </div>
@@ -157,6 +188,7 @@
 
   @include('turmas.matricular-modal')
   @include('turmas.horarios.create-modal')
+  @include('turmas.alocar-modal')
 
 @stop
 

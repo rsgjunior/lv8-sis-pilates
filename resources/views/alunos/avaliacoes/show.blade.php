@@ -48,7 +48,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputAltura">Idade</label>
-                            <p class="text-muted">{{ $avaliacao->aluno->getIdade() }} anos</p>
+                            <p class="text-muted">{{ $avaliacao->aluno->idade }} anos</p>
                         </div>
                     </div>
                 </div>

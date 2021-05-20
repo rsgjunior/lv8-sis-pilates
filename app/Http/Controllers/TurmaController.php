@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTurmaRequest;
 use App\Models\Aluno;
+use App\Models\Professor;
 use App\Models\Turma;
 use Illuminate\Http\Request;
 
@@ -53,12 +54,14 @@ class TurmaController extends Controller
     {
         $turma = Turma::findOrFail($id);
         $alunos = Aluno::all();
+        $professores = Professor::all();
         $horarios = $turma->horarios()->orderBy('dia_da_semana')->get();
 
         return view('turmas.show', [
             'turma' => $turma,
             'alunos' => $alunos,
-            'horarios' => $horarios
+            'horarios' => $horarios,
+            'professores' => $professores
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProfessorRequest;
 use App\Models\Professor;
+use App\Models\Turma;
 use Illuminate\Http\Request;
 
 class ProfessorController extends Controller
@@ -141,7 +142,14 @@ class ProfessorController extends Controller
         return redirect()->route('professores.index')->with('msg', 'Cadastro deletado com sucesso');
     }
 
-    public function alocarNaTurma() {
+    public function alocarNaTurma(Request $request) {
+        
+        $turma = Turma::findOrFail($request->turma_id);
 
+        $turma->update([
+            'professor_id' => $request->professor_id
+        ]);
+
+        return back()->with('success', 'Professor alocado na turma');
     }
 }

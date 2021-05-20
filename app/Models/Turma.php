@@ -11,7 +11,7 @@ class Turma extends Model
 
     protected $table = 'turmas';
 
-    protected $fillable = ['nome', 'descricao'];
+    protected $fillable = ['nome', 'professor_id', 'descricao'];
 
     // Relacionamentos
     public function alunos() {
