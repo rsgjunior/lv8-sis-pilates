@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>Bem-vindo a demo do SisPilates. Use o menu ao lado para navegar</p>
 @stop
 
 @section('css')

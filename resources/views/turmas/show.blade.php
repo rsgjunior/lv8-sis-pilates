@@ -116,7 +116,7 @@
                   <ul class="nav flex-column">
                     <li class="nav-item">
                       <a class="nav-link">
-                        Followers <span class="float-right badge bg-danger">842</span>
+                        Desalocar <span class="float-right badge bg-danger">x</span>
                       </a>
                     </li>
                   </ul>
