@@ -9,8 +9,11 @@ use Illuminate\Support\Carbon;
 class CalendarioController extends Controller
 {
     public function index() {
-        $data_inicio = Carbon::today();
-        $data_fim = $data_inicio->copy()->addMonth();
+        $data_inicio_pesquisa = request('data_inicio');
+        $data_fim_pesquisa = request('data_fim');
+
+        $data_inicio = $data_inicio_pesquisa ? $data_inicio_pesquisa : Carbon::today()->firstOfMonth();
+        $data_fim = $data_fim_pesquisa ? $data_fim_pesquisa : $data_inicio->copy()->addMonth();
 
         $horarios = Horario::all();
 
