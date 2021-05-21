@@ -42,7 +42,7 @@
 
         <div class="card card-default">
           <div class="card-header">
-            <h3 class="card-title">Professor(a) na(s) Turma(s)</h3>
+            <h3 class="card-title">Alocado(a) na(s) Turma(s)</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -54,9 +54,11 @@
 
               <p class="text-muted">
                 @foreach($turma->horarios as $horario)
-                  {{ $horario->dia_da_semana }}: {{ date('H:i', strtotime($horario->horario_inicio)) }} - {{ date('H:i', strtotime($horario->horario_fim)) }} 
+                  {{ $horario->dia_da_semana_str }}: {{ date('H:i', strtotime($horario->horario_inicio)) }} - {{ date('H:i', strtotime($horario->horario_fim)) }} 
                   <br>
                 @endforeach
+                <br>
+                Data alocação: {{ date('d/m/Y, H:i', strtotime($turma->data_alocacao)) }}
               </p>
 
               <hr>

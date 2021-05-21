@@ -23,15 +23,16 @@ class CalendarioController extends Controller
             $eventos[] = Calendar::event(
                 $horario->turma->nome, // Titulo
                 false, // O dia todo?
-                Carbon::today(), // Data/Hora Inicio
-                Carbon::today(), // Data/Hora Fim
+                null, // Data/Hora Inicio
+                null, // Data/Hora Fim
                 $horario->id, // ID (Opcional)
                 [
                     'daysOfWeek' => [$horario->dia_da_semana], // Dia da Semana
                     'startRecur' => $data_inicio,
                     'endRecur' => $data_fim,
                     'startTime' => $horario->horario_inicio,
-                    'endTime' => $horario->horario_fim
+                    'endTime' => $horario->horario_fim,
+                    'url' => route('turmas.show', $horario->turma)
                 ]
             );
         }
@@ -41,13 +42,17 @@ class CalendarioController extends Controller
         $calendar->addEvents($eventos)
         ->setOptions([
             'timeZone' => 'local',
-            'locale' => 'pt',
+            'locale' => 'pt-br',
             'firstDay' => 0,
             'displayEventTime' => true,
             'selectable' => true,
             'initialView' => 'timeGridWeek',
+            'nowIndicator' => true,
+            'themeSystem' => 'bootstrap',
             'headerToolbar' => [
-                'end' => 'today prev,next dayGridMonth timeGridWeek timeGridDay'
+                'start' => 'prev,next today',
+                'center' => 'title',
+                'end' => 'dayGridMonth,timeGridWeek,timeGridDay',
             ]
         ]);
 

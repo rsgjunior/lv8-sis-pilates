@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTurmaRequest;
+use App\Http\Requests\MatricularAlunoRequest;
 use App\Models\Aluno;
 use App\Models\Professor;
 use App\Models\Turma;
@@ -109,7 +110,7 @@ class TurmaController extends Controller
         return back()->with('msg', 'Turma removida com sucesso');
     }
 
-    public function matricular(Request $request) {
+    public function matricular(MatricularAlunoRequest $request) {
         foreach($request->alunos_id as $id) {
             $aluno = Aluno::findOrFail($id);
 

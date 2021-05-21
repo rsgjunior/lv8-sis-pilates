@@ -53,7 +53,7 @@
                 <td><a href="{{ route('turmas.show', ['turma' => $turma->id]) }}">{{ $turma->nome }}</a></td>
                 <td>
                   @forelse ($turma->horarios()->orderBy('dia_da_semana')->get() as $horario)
-                      {{ $horario->getDiaDaSemanaStr() }}: {{ date('H:i', strtotime($horario->horario_inicio)) }} - {{ date('H:i', strtotime($horario->horario_fim)) }}
+                      {{ $horario->dia_da_semana_str }}: {{ date('H:i', strtotime($horario->horario_inicio)) }} - {{ date('H:i', strtotime($horario->horario_fim)) }}
                       <br>
                   @empty
                       Nenhum horário cadastrado

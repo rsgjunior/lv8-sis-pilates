@@ -19,7 +19,7 @@ class Horario extends Model
     }
 
     // Métodos
-    public function getDiaDaSemanaStr() {
+    public function getDiaDaSemanaStrAttribute() {
         switch($this->dia_da_semana){
             case 0:
                 $str_dia_da_semana = 'Domingo';

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AlocarProfessorRequest;
 use App\Http\Requests\StoreProfessorRequest;
 use App\Models\Professor;
 use App\Models\Turma;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProfessorController extends Controller
@@ -142,14 +144,27 @@ class ProfessorController extends Controller
         return redirect()->route('professores.index')->with('msg', 'Cadastro deletado com sucesso');
     }
 
-    public function alocarNaTurma(Request $request) {
-        
+    public function alocarProfessor(AlocarProfessorRequest $request) 
+    {
         $turma = Turma::findOrFail($request->turma_id);
 
         $turma->update([
-            'professor_id' => $request->professor_id
+            'professor_id' => $request->professor_id,
+            'data_alocacao' => Carbon::now()
         ]);
 
         return back()->with('success', 'Professor alocado na turma');
+    }
+
+    public function desalocarProfessor($turma_id) 
+    {
+        $turma = Turma::findOrFail($turma_id);
+
+        $turma->update([
+            'professor_id' => null,
+            'data_alocacao' => null
+        ]);
+
+        return back()->with('msg', 'Professor foi desalocado da turma');
     }
 }

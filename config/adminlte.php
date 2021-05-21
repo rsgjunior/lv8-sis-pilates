@@ -253,7 +253,7 @@ return [
         [
             'text' => 'Calendário',
             'url'  => 'calendario',
-            'icon' => 'fas fa-fw fa-calendar',
+            'icon' => 'fas fa-fw fa-calendar-alt',
         ],
 
     ],

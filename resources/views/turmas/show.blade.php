@@ -115,9 +115,15 @@
                 <div class="card-footer p-0">
                   <ul class="nav flex-column">
                     <li class="nav-item">
-                      <a class="nav-link">
-                        Desalocar <span class="float-right badge bg-danger">x</span>
-                      </a>
+                      <form id="desalocarProf" action="{{ route('professores.desalocar', ['turma_id'=>$turma->id]) }}" method="POST">
+                        @csrf
+                        <a class="nav-link">
+                          Alocado em: {{ date('d/m/Y, H:i', strtotime($turma->data_alocacao)) }}
+                          <button type="submit" class="float-right btn btn-danger btn-xs">
+                            <i class="fas fa-times-circle"></i> Desalocar
+                          </button>
+                        </a>
+                      </form>
                     </li>
                   </ul>
                 </div>
@@ -138,7 +144,7 @@
             </p>
 
             <p class="text-muted well well-sm shadow-none">
-                Criada em: {{ date('d/m/Y', strtotime($turma->created_at)) }}
+                Criada em: {{ date('d/m/Y, H:i', strtotime($turma->created_at)) }}
             </p>
           </div>
           <!-- /.col -->
@@ -156,7 +162,7 @@
                 <tbody>
                 @forelse ($horarios as $horario)
                     <tr>
-                        <th style="width:50%">{{ $horario->getDiaDaSemanaStr() }}</th>
+                        <th style="width:50%">{{ $horario->dia_da_semana_str }}</th>
                         <td>{{ date('H:i', strtotime($horario->horario_inicio)) }} - {{ date('H:i', strtotime($horario->horario_fim)) }}</td>
                         <td>
                           <form action="{{ route('horarios.destroy', ['horario_id'=> $horario->id]) }}" method="post">
