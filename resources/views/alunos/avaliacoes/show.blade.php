@@ -12,18 +12,13 @@
     <div class="col-md-12">
         <div class="card card-widget widget-user-2">
             <div class="widget-user-header bg-default">
-              <div class="widget-user-image">
-                <img 
-                class="img-circle elevation-2" 
-                @if($avaliacao->aluno->foto)
-                    src="{{ url('/storage/fotos/'. $avaliacao->aluno->id . '/' . $avaliacao->aluno->foto) }}" 
-                @else
-                    src="{{ url('/img/default.jpg') }}" 
-                @endif
-                alt="User Avatar">
-              </div>
-              <h3 class="widget-user-username">{{ $avaliacao->aluno->nome }}</h3>
-              <h5 class="widget-user-desc">Ficha de Avaliação</h5>
+                <div class="widget-user-image">
+                    <img class="img-circle elevation-2" src="{{ $avaliacao->aluno->foto_url }}" alt="User Avatar">
+                </div>
+                <a href="{{ route('alunos.show', $avaliacao->aluno) }}">
+                    <h3 class="widget-user-username">{{ $avaliacao->aluno->nome }}</h3>
+                </a>
+                <h5 class="widget-user-desc">Ficha de Avaliação</h5>
             </div>
         </div>
     </div>
@@ -41,7 +36,9 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputPeso">Nome</label>
-                            <p class="text-muted">{{ $avaliacao->aluno->nome }}</p>
+                            <a href="{{ route('alunos.show', $avaliacao->aluno) }}">
+                                <p class="text-muted">{{ $avaliacao->aluno->nome }}</p>
+                            </a>
                         </div>
                     </div>
                   

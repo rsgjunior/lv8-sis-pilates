@@ -24,7 +24,7 @@ class AlunoController extends Controller
                 ['nome', 'like', '%' . $pesquisa . '%']
             ])->paginate(15);
         } else {
-            $alunos = Aluno::orderBy('nome')->paginate(15);
+            $alunos = Aluno::orderBy('nome')->paginate(9);
         }
 
         return view('alunos.index', [
