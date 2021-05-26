@@ -8,7 +8,8 @@
   @else
   <h1>Lista de Alunos</h1>
   @endif
-
+  
+  <a href="{{ route('alunos.create') }}" class="btn btn-primary">Cadastrar novo</a>
 @stop
 
 @section('content')
