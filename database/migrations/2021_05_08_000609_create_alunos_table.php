@@ -30,7 +30,7 @@ class CreateAlunosTable extends Migration
             $table->string('endereco_cidade', 50)->nullable();
             $table->string('endereco_bairro', 50)->nullable();
             $table->string('rg', 14)->nullable();
-            $table->string('cpf', 11)->nullable();
+            $table->string('cpf', 11);
             $table->string('foto')->nullable();
             $table->timestamps();
         });

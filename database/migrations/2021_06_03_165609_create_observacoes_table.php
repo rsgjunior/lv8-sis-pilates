@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTurmasTable extends Migration
+class CreateObservacoesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateTurmasTable extends Migration
      */
     public function up()
     {
-        Schema::create('turmas', function (Blueprint $table) {
+        Schema::create('observacoes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('professor_id')->nullable()->constrained('professores')
+            $table->foreignId('aluno_id')->contrained('alunos')
                   ->onUpdate('cascade')
-                  ->onDelete('set null');
-            $table->string('nome', 40);
-            $table->string('descricao')->nullable();
+                  ->onDelete('cascade');
+            $table->string('titulo', 120);
+            $table->longText('descricao');
+            $table->tinyInteger('categoria');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateTurmasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('turmas');
+        Schema::dropIfExists('observacoes');
     }
 }

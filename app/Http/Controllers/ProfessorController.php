@@ -7,7 +7,6 @@ use App\Http\Requests\StoreProfessorRequest;
 use App\Models\Professor;
 use App\Models\Turma;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class ProfessorController extends Controller
 {
@@ -19,18 +18,26 @@ class ProfessorController extends Controller
     public function index()
     {
         $pesquisa = request('pesquisa');
+        $criterio = request('criterio');
+        $criterios_validos = ['cpf', 'registro_profissional', 'nome', 'email'];
 
-        if($pesquisa) {
+        $qtdProfessores = Professor::count();
+
+        if($pesquisa && in_array($criterio, $criterios_validos)) {
             $professores = Professor::where([
-                'nome', 'LIKE', '%' . $pesquisa . '%'
+                [$criterio, 'LIKE', '%' . $pesquisa . '%']
             ])->paginate(15);
         }else {
+            $pesquisa = null;
+            $criterio = null;
             $professores = Professor::paginate(15);
         }
 
         return view('professores.index', [
             'professores' => $professores,
-            'pesquisa' => $pesquisa
+            'pesquisa' => $pesquisa,
+            'criterio' => $criterio,
+            'qtdProfessores' => $qtdProfessores
         ]);
     }
 

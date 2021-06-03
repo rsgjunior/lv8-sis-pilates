@@ -4,33 +4,63 @@
 
 @section('content_header')
   @if($pesquisa)
-  <h1>Pesquisando por: "{{ $pesquisa }}"</h1>
+  <h1>Pesquisando por: "{{ $pesquisa }}" - Critério {{ $criterio }}</h1>
   @else
-  <h1>Lista de Professores</h1>
+  <h1>Lista de Professores ({{ $qtdProfessores }})</h1>
   @endif
 @stop
 
 @section('content')
 
+<!-- Modal Pesquisa -->
+<div class="modal fade" id="pesquisarModal" tabindex="-1" role="dialog" aria-labelledby="pesquisarModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="pesquisarModalLabel">Pesquisar Professor</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <form action="" method="get">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputCriterio">Critério</label>
+            <select name="criterio" id="inputCriterio" class="form-control">
+              <option value="cpf" {{ $criterio == 'cpf' ? 'selected' : ''}}>CPF</option>
+              <option value="registro_profissional" {{ $criterio == 'registro_profissional' ? 'selected' : ''}}>Registro Profissional</option>
+              <option value="nome" {{ $criterio == 'nome' ? 'selected' : ''}}>Nome</option>
+              <option value="email" {{ $criterio == 'email' ? 'selected' : ''}}>E-mail</option>
+            </select>
+          </div>
+  
+          <div class="form-group">
+            <label for="inputPesquisa">Pesquisa</label>
+            <input type="text" id="inputPesquisa" name="pesquisa" class="form-control" placeholder="Digite o valor que deseja procurar" value="{{ $pesquisa }}">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-primary">Pesquisar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Fim Modal Pesquisa -->
+
 <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <a class="btn btn-primary" href="{{ route('professores.create') }}">
+          <a class="btn btn-primary btn-sm" href="{{ route('professores.create') }}">
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
-            Criar novo
+            Cadastrar novo
           </a>
-          <div class="card-tools">
-            <form action="{{ route('professores.index') }}" method="GET">
-              <div class="input-group input-group-sm" style="width: 250px;">
-                <input type="text" name="pesquisa" style="height: 50px;" class="form-control float-right" placeholder="Procurar professor">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                </div>
-              </div>
-            </form>
-            
-          </div>
+          
+          <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#pesquisarModal">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            Pesquisar
+          </button>
+
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
@@ -39,9 +69,9 @@
               <tr>
                 <th>Foto</th>
                 <th>Nome</th>
+                <th>Turmas</th>
                 <th>E-mail</th>
-                <th>Telefone</th>
-                <th>Data de Nascimento</th>
+                <th>Idade</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -59,9 +89,9 @@
                   >
                 </td>
                 <td><a href="{{ route('professores.show', ['professor' => $professor->id]) }}">{{ $professor->nome }}</a></td>
+                <td>{{ count($professor->turmas) }}</td>
                 <td>{{ $professor->email }}</td>
-                <td>{{ $professor->telefone }}</td>
-                <td>{{ date('d/m/Y', strtotime($professor->data_nascimento)) }}</td>
+                <td>{{ $professor->idade }} anos</td>
                 <td>
                   <a href="{{ route('professores.show', ['professor' => $professor->id]) }}" class="d-inline-block btn btn-primary btn-sm">
                     <i class="fa fa-eye" aria-hidden="true"></i>

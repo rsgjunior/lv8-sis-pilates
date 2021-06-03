@@ -12,8 +12,8 @@ class CalendarioController extends Controller
         $data_inicio_pesquisa = request('data_inicio');
         $data_fim_pesquisa = request('data_fim');
 
-        $data_inicio = $data_inicio_pesquisa ? $data_inicio_pesquisa : Carbon::today()->firstOfMonth();
-        $data_fim = $data_fim_pesquisa ? $data_fim_pesquisa : $data_inicio->copy()->addMonth();
+        $data_inicio = $data_inicio_pesquisa ? $data_inicio_pesquisa : Carbon::today()->subMonth();
+        $data_fim = $data_fim_pesquisa ? $data_fim_pesquisa : Carbon::today()->addMonth();
 
         $horarios = Horario::all();
 
@@ -21,7 +21,7 @@ class CalendarioController extends Controller
 
         foreach($horarios as $horario) {
             $eventos[] = Calendar::event(
-                $horario->turma->nome, // Titulo
+                $horario->turma->nome . ' (' . count($horario->turma->alunos) . ')', // Titulo
                 false, // O dia todo?
                 null, // Data/Hora Inicio
                 null, // Data/Hora Fim

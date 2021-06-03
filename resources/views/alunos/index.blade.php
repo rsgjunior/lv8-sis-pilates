@@ -79,7 +79,7 @@
                 <div class="col-7">
                   <a href="{{ route('alunos.show', $aluno) }}"><h2 class="lead"><b>{{ $aluno->nome }}</b></h2></a>
                   <ul class="ml-4 mb-0 fa-ul text-muted">
-                    <li class="small mb-2">
+                    <li class="small mb-2" data-toggle="tooltip" title="CPF" data-placement="left">
                       <span class="fa-li"><i class="fas fa-lg fa-address-card"></i></span>
                       @if($aluno->cpf) 
                         {{ $aluno->cpf }}
@@ -88,7 +88,7 @@
                       @endif
                     </li>
                     
-                    <li class="small mb-2">
+                    <li class="small mb-2" data-toggle="tooltip" title="Endereço" data-placement="left">
                       <span class="fa-li"><i class="fas fa-lg fa-map-marker-alt"></i></span> 
                       @if($aluno->cep)
                         {{ $aluno->endereco_rua }}, {{ $aluno->endereco_numero }} 
@@ -99,7 +99,7 @@
                     </li>
                     
 
-                    <li class="small mb-2">
+                    <li class="small mb-2" data-toggle="tooltip" title="Idade" data-placement="left">
                       <span class="fa-li"><i class="fas fa-lg fa-birthday-cake"></i></span>
                       @if($aluno->data_nascimento)
                         {{ date('d/m/Y', strtotime($aluno->data_nascimento))}} ({{ $aluno->idade }} anos)
@@ -108,7 +108,7 @@
                       @endif  
                     </li>
 
-                    <li class="small mb-2">
+                    <li class="small mb-2" data-toggle="tooltip" title="E-mail" data-placement="left">
                       <span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span>
                       @if ($aluno->email)
                         {{ $aluno->email }}
@@ -117,7 +117,7 @@
                       @endif 
                     </li>
 
-                    <li class="small mb-2">
+                    <li class="small mb-2" data-toggle="tooltip" title="Telefone" data-placement="left">
                       <span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>
                       @if ($aluno->telefone)
                         {{ $aluno->telefone }}
@@ -184,4 +184,9 @@
 @stop
 
 @section('js')
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+  </script>
 @stop

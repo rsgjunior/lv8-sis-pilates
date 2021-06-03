@@ -15,7 +15,7 @@
           <h4 class="card-title">Intervalo de Tempo</h4>
         </div>
         <div class="card-body">
-          <form action="{{ route('calendario.index') }}" method="get">
+          <form action="" method="get">
             <label for="data_inicio">Data Inicio:</label>
             <input type="date" name="data_inicio" id="data_inicio" class="form-control mb-3" value="{{ date('Y-m-d', strtotime($data_inicio)) }}">
             <label for="data_fim">Data Fim:</label>

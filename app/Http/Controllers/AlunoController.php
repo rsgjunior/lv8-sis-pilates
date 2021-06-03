@@ -19,10 +19,9 @@ class AlunoController extends Controller
     {
         $pesquisa = request('pesquisa');
         $criterio = request('criterio');
-
         $criterios_validos = ['cpf', 'rg', 'nome', 'email'];
 
-        $qtdAlunos = count(Aluno::all());
+        $qtdAlunos = Aluno::count();
 
         if($pesquisa && in_array($criterio, $criterios_validos)) {
             $alunos = Aluno::where([
@@ -89,11 +88,13 @@ class AlunoController extends Controller
         $aluno = Aluno::findOrFail($id);
         $turmas = $aluno->turmas;
         $avaliacoes = $aluno->avaliacoes()->paginate(3);
+        $observacoes = $aluno->observacoes()->orderBy('created_at', 'DESC')->get();
 
         return view('alunos.show', [
             'aluno' => $aluno,
             'turmas' => $turmas,
-            'avaliacoes' => $avaliacoes
+            'avaliacoes' => $avaliacoes,
+            'observacoes' => $observacoes
         ]);
     }
 
