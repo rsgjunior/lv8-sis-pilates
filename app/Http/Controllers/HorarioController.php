@@ -9,12 +9,18 @@ class HorarioController extends Controller
 {
     public function store(StoreHorarioRequest $request) {
         foreach($request->dias_da_semana as $dia_da_semana) {
-            /*
+            
             // Verifica se já existe algum horário cadastrado no mesmo intervalo de tempo
-            $conflito_de_horario = Horario::where('dia_da_semana', $dia_da_semana)
-                                ->whereBetween('horario_inicio', [$request->horario_inicio, $request->horario_fim])
-                                ->WhereBetween('horario_fim', [$request->horario_inicio, $request->horario_fim])    
-                                ->get()->isNotEmpty();
+            /*
+            $conflito_de_horario = Horario::where('dia_da_semana', $dia_da_semana)->get();
+
+            dd($conflito_de_horario);
+
+            $teste = $conflito_de_horario->whereBetween('horario_inicio', [$request->horario_inicio, $request->horario_fim])
+                                         ->orWhereBetween('horario_fim', [$request->horario_inicio, $request->horario_fim])
+                                         ->get();
+
+            
 
             if($conflito_de_horario){
                 return back()->with('error', 'Já existe alguma turma cadastrada no mesmo intervalo de tempo');

@@ -6,14 +6,61 @@
   @if($pesquisa)
   <h1>Pesquisando por: "{{ $pesquisa }}"</h1>
   @else
-  <h1>Lista de Alunos</h1>
+  <h1>Lista de Alunos ({{ $qtdAlunos }})</h1>
   @endif
   
-  <a href="{{ route('alunos.create') }}" class="btn btn-primary">Cadastrar novo</a>
+  
 @stop
 
 @section('content')
+
+<!-- Modal Pesquisa -->
+<div class="modal fade" id="modalPesquisar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Pesquisar Aluno</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <form action="" method="get">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputCriterio">Critério</label>
+            <select name="criterio" id="inputCriterio" class="form-control">
+              <option value="cpf">CPF</option>
+              <option value="rg">RG</option>
+              <option value="nome">Nome</option>
+              <option value="email">E-mail</option>
+            </select>
+          </div>
+  
+          <div class="form-group">
+            <label for="inputPesquisa">Pesquisa</label>
+            <input type="text" id="inputPesquisa" name="pesquisa" class="form-control" placeholder="Digite o valor que deseja procurar">
+          </div>
+        </div>
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-primary">Pesquisar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Fim Modal Pesquisa -->
+
 <div class="card card-solid">
+  <div class="card-header">
+    <a href="{{ route('alunos.create') }}" class="btn btn-sm btn-primary">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> Cadastrar novo
+    </a>
+
+    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalPesquisar">
+      <i class="fa fa-search" aria-hidden="true"></i> Pesquisar
+    </button>
+
+  </div>
   <div class="card-body pb-0">
     <div class="row d-flex align-items-stretch">
       @foreach ($alunos as $aluno)
@@ -26,24 +73,53 @@
             <div class="card-body pt-0">
               <div class="row">
                 <div class="col-7">
-                  <h2 class="lead"><b>{{ $aluno->nome }}</b></h2>
+                  <a href="{{ route('alunos.show', $aluno) }}"><h2 class="lead"><b>{{ $aluno->nome }}</b></h2></a>
                   <ul class="ml-4 mb-0 fa-ul text-muted">
                     <li class="small mb-2">
+                      <span class="fa-li"><i class="fas fa-lg fa-address-card"></i></span>
+                      @if($aluno->cpf) 
+                        {{ $aluno->cpf }}
+                      @else
+                        -
+                      @endif
+                    </li>
+                    
+                    <li class="small mb-2">
                       <span class="fa-li"><i class="fas fa-lg fa-map-marker-alt"></i></span> 
-                      {{ $aluno->endereco_rua }}, {{ $aluno->endereco_numero }} 
-                      - {{ $aluno->endereco_cidade }}/{{ $aluno->endereco_estado }}
+                      @if($aluno->cep)
+                        {{ $aluno->endereco_rua }}, {{ $aluno->endereco_numero }} 
+                        - {{ $aluno->endereco_cidade }}/{{ $aluno->endereco_estado }}
+                      @else
+                      -
+                      @endif
                     </li>
+                    
+
                     <li class="small mb-2">
-                      <span class="fa-li"><i class="fas fa-lg fa-birthday-cake"></i></span> 
-                      {{ date('d/m/Y', strtotime($aluno->data_nascimento))}} ({{ $aluno->idade }} anos)
+                      <span class="fa-li"><i class="fas fa-lg fa-birthday-cake"></i></span>
+                      @if($aluno->data_nascimento)
+                        {{ date('d/m/Y', strtotime($aluno->data_nascimento))}} ({{ $aluno->idade }} anos)
+                      @else
+                        -
+                      @endif  
                     </li>
+
                     <li class="small mb-2">
-                      <span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> 
-                      {{ $aluno->email }}
+                      <span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span>
+                      @if ($aluno->email)
+                        {{ $aluno->email }}
+                      @else
+                        - 
+                      @endif 
                     </li>
+
                     <li class="small mb-2">
-                      <span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> 
-                      {{ $aluno->telefone }}
+                      <span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>
+                      @if ($aluno->telefone)
+                        {{ $aluno->telefone }}
+                      @else
+                        -
+                      @endif 
                     </li>
                   </ul>
                 </div>
@@ -55,7 +131,7 @@
             <div class="card-footer">
               <div class="text-right">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                     <i class="fas fa-lg fa-user-cog"></i>
                   </button>
                   <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-10px, 38px, 0px);">
@@ -79,7 +155,7 @@
                 </div>
 
                 <a href="{{ route('alunos.show', $aluno) }}" class="btn btn-sm btn-primary">
-                  <i class="fas fa-user"></i> Ver Perfil
+                  <i class="fas fa-user"></i> Ver Cadastro
                 </a>
               </div>
             </div>

@@ -18,18 +18,26 @@ class AlunoController extends Controller
     public function index()
     {
         $pesquisa = request('pesquisa');
+        $criterio = request('criterio');
 
-        if ($pesquisa) {
+        $criterios_validos = ['cpf', 'rg', 'nome', 'email'];
+
+        $qtdAlunos = count(Aluno::all());
+
+        if($pesquisa && in_array($criterio, $criterios_validos)) {
             $alunos = Aluno::where([
-                ['nome', 'like', '%' . $pesquisa . '%']
-            ])->paginate(15);
-        } else {
+                [$criterio, 'LIKE', '%' . $pesquisa . '%']
+            ])->paginate(9);
+        }else{
+            $pesquisa = null;
+            $criterio = null;
             $alunos = Aluno::orderBy('nome')->paginate(9);
         }
 
         return view('alunos.index', [
             'alunos' => $alunos,
-            'pesquisa' => $pesquisa
+            'pesquisa' => $pesquisa,
+            'qtdAlunos' => $qtdAlunos
         ]);
     }
 

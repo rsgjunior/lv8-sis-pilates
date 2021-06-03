@@ -42,6 +42,7 @@
               <tr>
                 <th>ID</th>
                 <th>Nome</th>
+                <th>Alunos</th>
                 <th>Horário(s)</th>
                 <th>Ações</th>
               </tr>
@@ -51,6 +52,7 @@
             <tr>
                 <td>{{ $turma->id }}</td>
                 <td><a href="{{ route('turmas.show', ['turma' => $turma->id]) }}">{{ $turma->nome }}</a></td>
+                <td>{{ count($turma->alunos) }}</td>
                 <td>
                   @forelse ($turma->horarios()->orderBy('dia_da_semana')->get() as $horario)
                       {{ $horario->dia_da_semana_str }}: {{ date('H:i', strtotime($horario->horario_inicio)) }} - {{ date('H:i', strtotime($horario->horario_fim)) }}
