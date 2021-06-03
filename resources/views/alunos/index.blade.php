@@ -4,7 +4,7 @@
 
 @section('content_header')
   @if($pesquisa)
-  <h1>Pesquisando por: "{{ $pesquisa }}"</h1>
+  <h1>Pesquisando por: "{{ $pesquisa }}" - Critério: {{ $criterio }}</h1>
   @else
   <h1>Lista de Alunos ({{ $qtdAlunos }})</h1>
   @endif
@@ -27,16 +27,16 @@
           <div class="form-group">
             <label for="inputCriterio">Critério</label>
             <select name="criterio" id="inputCriterio" class="form-control">
-              <option value="cpf">CPF</option>
-              <option value="rg">RG</option>
-              <option value="nome">Nome</option>
-              <option value="email">E-mail</option>
+              <option value="cpf" {{ $criterio == 'cpf' ? 'selected' : ''}}>CPF</option>
+              <option value="rg" {{ $criterio == 'rg' ? 'selected' : ''}}>RG</option>
+              <option value="nome" {{ $criterio == 'nome' ? 'selected' : ''}}>Nome</option>
+              <option value="email" {{ $criterio == 'email' ? 'selected' : ''}}>E-mail</option>
             </select>
           </div>
   
           <div class="form-group">
             <label for="inputPesquisa">Pesquisa</label>
-            <input type="text" id="inputPesquisa" name="pesquisa" class="form-control" placeholder="Digite o valor que deseja procurar">
+            <input type="text" id="inputPesquisa" name="pesquisa" class="form-control" placeholder="Digite o valor que deseja procurar" value="{{ $pesquisa }}">
           </div>
         </div>
   
@@ -68,7 +68,11 @@
         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
           <div class="card bg-light">
             <div class="card-header text-muted border-bottom-0">
-              {{ $aluno->profissao }}
+              @if($aluno->profissao)
+                {{ $aluno->profissao }}
+              @else
+                Profissão não informada
+              @endif
             </div>
             <div class="card-body pt-0">
               <div class="row">
@@ -124,7 +128,9 @@
                   </ul>
                 </div>
                 <div class="col-5 text-center">
-                  <img src="{{ $aluno->foto_url }}" alt="" class="img-circle img-fluid">
+                  <a href="{{ route('alunos.show', $aluno) }}">
+                    <img src="{{ $aluno->foto_url }}" alt="" class="img-circle img-fluid">
+                  </a>
                 </div>
               </div>
             </div>

@@ -164,7 +164,7 @@
 
         <div class="col-md-12 mb-5">
             <div class="card-footer">
-                <a href="{{ route('alunos.index') }}" class="btn btn-default">
+                <a href="{{ url()->previous() }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i> Voltar
                 </a>
                 <button type="submit" class="btn btn-primary float-right">

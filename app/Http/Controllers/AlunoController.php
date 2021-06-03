@@ -37,6 +37,7 @@ class AlunoController extends Controller
         return view('alunos.index', [
             'alunos' => $alunos,
             'pesquisa' => $pesquisa,
+            'criterio' => $criterio,
             'qtdAlunos' => $qtdAlunos
         ]);
     }
