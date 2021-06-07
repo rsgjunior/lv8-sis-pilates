@@ -76,8 +76,8 @@
           <div class="card-header p-2">
             <ul class="nav nav-pills">
               <li class="nav-item"><a class="nav-link active" href="#dados_pessoais" data-toggle="tab">Dados Pessoais</a></li>
-              <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Avaliações</a></li>
-              <li class="nav-item"><a class="nav-link" href="#observacoes" data-toggle="tab">Observações</a></li>
+              <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Avaliações ({{ count($aluno->avaliacoes) }})</a></li>
+              <li class="nav-item"><a class="nav-link" href="#observacoes" data-toggle="tab">Observações ({{ count($aluno->observacoes) }})</a></li>
             </ul>
           </div><!-- /.card-header -->
           <div class="card-body">
@@ -214,41 +214,7 @@
               <!-- /.tab-pane -->
               
               <div class="tab-pane" id="observacoes">
-                <a href="{{ route('observacoes.create', $aluno) }}" class="btn btn-primary mb-4">
-                  Criar nova
-                </a>
-                <!-- The timeline -->
-                <div class="timeline timeline-inverse">
-                  <!-- timeline time label -->
-                  <div class="time-label">
-                    <span class="bg-danger">
-                      Data
-                    </span>
-                  </div>
-                  <!-- /.timeline-label -->
-                  <!-- timeline item -->
-                  @foreach ($observacoes as $observacao)
-                    <div>
-                      <i class="fas fa-comments bg-yellow"></i>
-    
-                      <div class="timeline-item">
-                        <span class="time"><i class="far fa-clock"></i> {{ date('H:i', strtotime($observacao->created_at)) }}</span>
-    
-                        <h3 class="timeline-header">{{ $observacao->titulo }}</h3>
-    
-                        <div class="timeline-body">
-                          {{ $observacao->descricao }}
-                        </div>
-                        
-                      </div>
-                    </div>
-                  @endforeach
-                  <!-- END timeline item -->
-                  <div>
-                    <i class="far fa-clock bg-gray"></i>
-                  </div>
-                </div>
-                
+                @include('alunos.observacoes.lista')
               </div>
               <!-- /.tab-pane -->
             </div>

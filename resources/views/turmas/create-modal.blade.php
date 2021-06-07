@@ -13,9 +13,16 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="inputNome">Nome</label>
-                            <input type="text" class="form-control" id="inputNome" name="nome" placeholder="Um nome para a turma" required>
+                        <div class="form-group row">
+                            <div class="col-md-10">
+                                <label for="inputNome">Nome</label>
+                                <input type="text" class="form-control" id="inputNome" name="nome" placeholder="Um nome para a turma" required>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="inputCorCalendario">Cor</label>
+                                <input type="color" value="#007bff" class="form-control" id="inputNome" name="cor_calendario" required>
+                            </div>
                         </div>
 
                         <div class="form-group">

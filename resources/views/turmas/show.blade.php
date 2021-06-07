@@ -3,8 +3,29 @@
 @section('title', 'Visualizando turma')
 
 @section('content_header')
-      <h1>{{ $turma->nome }}</h1>
-
+      <h1>{{ $turma->nome }}
+      <button type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <i class="fas fa-lg fa-tools"></i>
+      </button>
+      <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-10px, 38px, 0px);">
+        <li>
+          <a href="{{ route('turmas.edit', $turma) }}" class="dropdown-item">
+            <i class="fa fa-edit" aria-hidden="true"></i>
+              Editar        
+          </a>
+        </li>
+        <li>
+          <form action="{{ route('turmas.destroy', $turma) }}" method="post">
+            @csrf
+            @method('DELETE')
+              <button type="submit" class="dropdown-item">
+                <i class="fa fa-trash" aria-hidden="true"></i> 
+                Excluir        
+              </button>
+          </form>
+        </li>
+      </ul>
+    </h1>
 @stop
 
 @section('content')
@@ -181,6 +202,14 @@
               </tbody>
             </table>
             </div>
+
+            <p class="lead">
+              Cor no Calendário: 
+              <span style="color: {{ $turma->cor_calendario }}">
+                <i class="fas fa-square"></i>
+              </span>
+              {{ $turma->cor_calendario }}
+            </p>
           </div>
           <!-- /.col -->
         </div>

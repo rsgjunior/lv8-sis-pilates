@@ -21,9 +21,16 @@
             @csrf
             @method('PUT')
             <div class="card-body">
-                <div class="form-group">
-                    <label for="inputNome">Nome</label>
-                    <input type="text" class="form-control" id="inputNome" name="nome" value="{{ $turma->nome }}">
+                <div class="form-group row">
+                  <div class="col-md-10">
+                      <label for="inputNome">Nome</label>
+                      <input type="text" class="form-control" id="inputNome" name="nome" value="{{ $turma->nome }}" required>
+                  </div>
+
+                  <div class="col-md-2">
+                      <label for="inputCorCalendario">Cor</label>
+                      <input type="color" value="{{ $turma->cor_calendario }}" class="form-control" id="inputCorCalendario" name="cor_calendario" required>
+                  </div>
                 </div>
 
                 <div class="form-group">

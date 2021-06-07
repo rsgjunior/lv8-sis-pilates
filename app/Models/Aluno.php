@@ -24,7 +24,7 @@ class Aluno extends Model
     }
 
     public function turmas() {
-        return $this->belongsToMany(Turma::class, 'alunos_turmas', 'aluno_id', 'turma_id');
+        return $this->belongsToMany(Turma::class, 'alunos_turmas', 'aluno_id', 'turma_id')->withTimestamps();
     }
 
     public function observacoes() {

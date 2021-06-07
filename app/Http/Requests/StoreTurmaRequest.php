@@ -24,8 +24,9 @@ class StoreTurmaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome'      => 'required|max:50',
-            'descricao' => 'nullable|max:500'
+            'nome'           => 'required|max:50',
+            'descricao'      => 'nullable|max:500',
+            'cor_calendario' => 'required|string|size:7'
         ];
     }
 }

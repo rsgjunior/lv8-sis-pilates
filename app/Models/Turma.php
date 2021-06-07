@@ -11,11 +11,11 @@ class Turma extends Model
 
     protected $table = 'turmas';
 
-    protected $fillable = ['nome', 'professor_id', 'descricao', 'data_alocacao'];
+    protected $fillable = ['nome', 'professor_id', 'descricao', 'data_alocacao', 'cor_calendario'];
 
     // Relacionamentos
     public function alunos() {
-        return $this->belongsToMany(Aluno::class, 'alunos_turmas', 'turma_id', 'aluno_id');
+        return $this->belongsToMany(Aluno::class, 'alunos_turmas', 'turma_id', 'aluno_id')->withTimestamps();
     }
 
     public function horarios() {

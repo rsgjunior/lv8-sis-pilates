@@ -32,7 +32,9 @@ class CalendarioController extends Controller
                     'endRecur' => $data_fim,
                     'startTime' => $horario->horario_inicio,
                     'endTime' => $horario->horario_fim,
-                    'url' => route('turmas.show', $horario->turma)
+                    'url' => route('turmas.show', $horario->turma),
+                    'backgroundColor' => $horario->turma->cor_calendario,
+                    'borderColor' => $horario->turma->cor_calendario
                 ]
             );
         }

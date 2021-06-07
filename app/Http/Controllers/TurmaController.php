@@ -21,7 +21,7 @@ class TurmaController extends Controller
         $pesquisa = request('pesquisa');
 
         if($pesquisa){
-            $turmas = Turma::where('nome', 'LIKE', $pesquisa);
+            $turmas = Turma::where('nome', 'LIKE', $pesquisa)->paginate(15);
         }else{
             $turmas = Turma::paginate(15);
         }
@@ -105,9 +105,13 @@ class TurmaController extends Controller
      */
     public function destroy($id)
     {
-        Turma::findOrFail($id)->delete();
+        $turma = Turma::findOrFail($id);
 
-        return back()->with('msg', 'Turma removida com sucesso');
+        $turma->delete();
+
+        return redirect()
+                ->route('turmas.index')
+                ->with('msg', 'Turma "' . $turma->nome . '" foi excluída');
     }
 
     public function matricular(MatricularAlunoRequest $request) {
