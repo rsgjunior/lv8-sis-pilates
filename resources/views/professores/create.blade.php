@@ -108,7 +108,7 @@
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <label for="inputRua">Rua</label>
-                                <input type="text" class="form-control" id="inputRua" name="endereco_rua" placeholder="Nome da rua/avenida" value="{{ old('endereco_rua') }}">
+                                <input type="text" class="form-control" id="inputRua" name="endereco_rua" placeholder="Insira o número do CEP" value="{{ old('endereco_rua') }}">
                             </div>
 
                             <div class="col-sm-2">
@@ -117,25 +117,25 @@
                             </div>
 
                             <div class="col-sm-4">
-                                <label for="inputComplemento">Complemento (Opcional)</label>
-                                <input type="text" class="form-control" id="inputComplemento" name="endereco_complemento" placeholder="Ex: Casa, Apartamento" value="{{ old('endereco_complemento') }}">
+                                <label for="inputComplemento">Complemento</label>
+                                <input type="text" class="form-control" id="inputComplemento" name="endereco_complemento" value="{{ old('endereco_complemento') }}">
                             </div>
                         </div>
 
 
                         <div class="form-group">
                             <label for="inputEstado">Estado</label>
-                            <input type="text" class="form-control" id="inputEstado" name="endereco_estado" value="{{ old('endereco_estado') }}">
+                            <input type="text" class="form-control" id="inputEstado" name="endereco_estado" placeholder="Insira o número do CEP" value="{{ old('endereco_estado') }}">
                         </div>
 
                         <div class="form-group">
                             <label for="inputCidade">Cidade</label>
-                            <input type="text" class="form-control" id="inputCidade" name="endereco_cidade" value="{{ old('endereco_cidade') }}">
+                            <input type="text" class="form-control" id="inputCidade" name="endereco_cidade" placeholder="Insira o número do CEP" value="{{ old('endereco_cidade') }}">
                         </div>
 
                         <div class="form-group">
                             <label for="inputBairro">Bairro</label>
-                            <input type="text" class="form-control" id="inputBairro" name="endereco_bairro" value="{{ old('endereco_bairro') }}">
+                            <input type="text" class="form-control" id="inputBairro" name="endereco_bairro" placeholder="Insira o número do CEP" value="{{ old('endereco_bairro') }}">
                         </div>
                     </div>
                 <!-- /.card-body -->
@@ -185,6 +185,13 @@
 @stop
 
 @section('css')
+<style>
+
+#inputRua, #inputEstado, #inputCidade, #inputBairro {
+    pointer-events: none;
+}
+
+</style>
 
 @stop
 
@@ -202,4 +209,7 @@
         } 
     })
 </script>
+
+<script src="/js/viacep.js"></script>
+
 @stop

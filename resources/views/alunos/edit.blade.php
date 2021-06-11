@@ -204,4 +204,6 @@
 
 @section('js')
     
+<script src="/js/viacep.js"></script>
+
 @stop

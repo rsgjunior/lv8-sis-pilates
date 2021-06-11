@@ -203,4 +203,6 @@
         } 
     })
 </script>
+
+<script src="/js/viacep.js"></script>
 @stop
