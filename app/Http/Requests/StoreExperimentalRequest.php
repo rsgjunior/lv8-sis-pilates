@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreHorarioRequest extends FormRequest
+class StoreExperimentalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,12 @@ class StoreHorarioRequest extends FormRequest
     public function rules()
     {
         return [
-            'dias_da_semana'     => 'required',
-            'horario_inicio'    => 'required|date_format:H:i',
-            'horario_fim'       => 'required|date_format:H:i|after:horario_inicio'
+            'nome' => 'required|string|max:200',
+            'telefone' => 'required|string|max:25',
+            'data' => 'required|date|after_or_equal:today',
+            'horario_inicio' => 'required|date_format:H:i',
+            'horario_fim' => 'required|date_format:H:i|after:horario_inicio',
+            'observacao' => 'nullable|string|max:500'
         ];
     }
 }

@@ -19,7 +19,7 @@ class Turma extends Model
     }
 
     public function horarios() {
-        return $this->hasMany(Horario::class, 'turma_id');
+        return $this->hasMany(HorarioTurma::class, 'turma_id');
     }
 
     public function professor() {

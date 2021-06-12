@@ -251,6 +251,11 @@ return [
             'icon' => 'fas fa-fw fa-chalkboard-teacher',
         ],
         [
+            'text' => 'Experimentais',
+            'url'  => 'experimentais',
+            'icon' => 'fas fa-fw fa-flask',
+        ],
+        [
             'text' => 'Calendário',
             'url'  => 'calendario',
             'icon' => 'fas fa-fw fa-calendar-alt',

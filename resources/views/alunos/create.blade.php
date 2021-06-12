@@ -34,14 +34,9 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <label for="inputTelefone">Telefone</label>
                                 <input type="tel" class="form-control" id="inputTelefone" name="telefone" placeholder="(xx) xxxxx-xxxx" value="{{ old('telefone') }}" required>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <label for="inputTelefone2">Telefone 2 (Opcional)</label>
-                                <input type="tel" class="form-control" id="inputTelefone2" name="telefone2" placeholder="(xx) xxxxx-xxxx" value="{{ old('telefone2') }}">
                             </div>
                         </div>
 

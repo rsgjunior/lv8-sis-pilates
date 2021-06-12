@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Acaronlex\LaravelCalendar\Calendar;
-use App\Models\Horario;
+use App\Models\Experimental;
+use App\Models\HorarioTurma;
 use Illuminate\Support\Carbon;
 
 class CalendarioController extends Controller
@@ -15,26 +16,49 @@ class CalendarioController extends Controller
         $data_inicio = $data_inicio_pesquisa ? $data_inicio_pesquisa : Carbon::today()->subMonth();
         $data_fim = $data_fim_pesquisa ? $data_fim_pesquisa : Carbon::today()->addMonth();
 
-        $horarios = Horario::all();
+        $horariosTurmas = HorarioTurma::all();
+        $experimentais = Experimental::all();
 
         $eventos = [];
 
-        foreach($horarios as $horario) {
+        // Adiciona as turmas
+        foreach($horariosTurmas as $horarioTurma) {
             $eventos[] = Calendar::event(
-                $horario->turma->nome . ' (' . count($horario->turma->alunos) . ')', // Titulo
+                $horarioTurma->turma->nome . ' (' . count($horarioTurma->turma->alunos) . ')', // Titulo
                 false, // O dia todo?
                 null, // Data/Hora Inicio
                 null, // Data/Hora Fim
-                $horario->id, // ID (Opcional)
+                $horarioTurma->id, // ID (Opcional)
                 [
-                    'daysOfWeek' => [$horario->dia_da_semana], // Dia da Semana
+                    'daysOfWeek' => [$horarioTurma->dia_da_semana], // Dia da Semana
                     'startRecur' => $data_inicio,
                     'endRecur' => $data_fim,
-                    'startTime' => $horario->horario_inicio,
-                    'endTime' => $horario->horario_fim,
-                    'url' => route('turmas.show', $horario->turma),
-                    'backgroundColor' => $horario->turma->cor_calendario,
-                    'borderColor' => $horario->turma->cor_calendario
+                    'startTime' => $horarioTurma->horario_inicio,
+                    'endTime' => $horarioTurma->horario_fim,
+                    'url' => route('turmas.show', $horarioTurma->turma),
+                    'backgroundColor' => $horarioTurma->turma->cor_calendario,
+                    'borderColor' => $horarioTurma->turma->cor_calendario
+                ]
+            );
+        }
+
+        // Adiciona as experimentais
+        foreach($experimentais as $experimental) {
+            $eventos[] = Calendar::event(
+                'Experimental de ' . $experimental->aluno->nome, // Titulo
+                false, // O dia todo?
+                null, // Data/Hora Inicio
+                null, // Data/Hora Fim
+                $horarioTurma->id, // ID (Opcional)
+                [
+                    'daysOfWeek' => [$horarioTurma->dia_da_semana], // Dia da Semana
+                    'startRecur' => $data_inicio,
+                    'endRecur' => $data_fim,
+                    'startTime' => $horarioTurma->horario_inicio,
+                    'endTime' => $horarioTurma->horario_fim,
+                    'url' => route('turmas.show', $horarioTurma->turma),
+                    'backgroundColor' => $horarioTurma->turma->cor_calendario,
+                    'borderColor' => $horarioTurma->turma->cor_calendario
                 ]
             );
         }

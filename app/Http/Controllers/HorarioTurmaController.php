@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreHorarioRequest;
-use App\Models\Horario;
+use App\Http\Requests\StoreHorarioTurmaRequest;
+use App\Models\HorarioTurma;
 use Carbon\Carbon;
 
-class HorarioController extends Controller
+class HorarioTurmaController extends Controller
 {
-    public function store(StoreHorarioRequest $request) {
+    public function store(StoreHorarioTurmaRequest $request) {
         /**
          * As comparações whereBetween das collections não são excludentes nos limites,
          * ou seja, se eu comparar se um tempo está entre 10:00 e 11:00 ele leva em consideração
@@ -21,7 +21,7 @@ class HorarioController extends Controller
 
         foreach($request->dias_da_semana as $dia_da_semana) {
             
-            $horarios = Horario::where('dia_da_semana', $dia_da_semana)->get();
+            $horarios = HorarioTurma::where('dia_da_semana', $dia_da_semana)->get();
             // Verifica se já existe algum horário cadastrado no mesmo intervalo de tempo
             $conflito_de_horario = $horarios->whereBetween('horario_inicio', [$horario_inicio, $horario_fim])->isNotEmpty() || $horarios->whereBetween('horario_fim', [$horario_inicio, $horario_fim])->isNotEmpty();
 
@@ -30,7 +30,7 @@ class HorarioController extends Controller
                     ->with('error', 'Já existe alguma turma cadastrada entre o intervalo de tempo ' . $request->horario_inicio . ' - ' . $request->horario_fim);
             }
 
-            Horario::create([
+            HorarioTurma::create([
                 'turma_id' => $request->turma_id,
                 'dia_da_semana' => $dia_da_semana,
                 'horario_inicio' => $request->horario_inicio,
@@ -42,7 +42,7 @@ class HorarioController extends Controller
     }
 
     public function destroy($horario_id) {
-        Horario::findOrFail($horario_id)->delete();
+        HorarioTurma::findOrFail($horario_id)->delete();
 
         return back()->with('msg', 'Horário removido');
     }

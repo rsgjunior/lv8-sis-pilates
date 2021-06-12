@@ -31,6 +31,10 @@ class Aluno extends Model
         return $this->hasMany(Observacao::class, 'aluno_id');
     }
 
+    public function experimental() {
+        return $this->hasOne(Experimental::class, 'aluno_id');
+    }
+
     // Métodos
     public function getIdadeAttribute(){
         return Carbon::parse($this->data_nascimento)->age;

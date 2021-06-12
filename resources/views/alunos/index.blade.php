@@ -143,7 +143,7 @@
                   <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-10px, 38px, 0px);">
                     <li>
                       <a href="{{ route('alunos.edit', ['aluno' => $aluno->id]) }}" class="dropdown-item">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        <i class="fa fa-fw fa-edit" aria-hidden="true"></i>
                           Editar        
                       </a>
                     </li>
@@ -152,7 +152,7 @@
                         @csrf
                         @method('DELETE')
                           <button type="submit" class="dropdown-item">
-                            <i class="fa fa-trash" aria-hidden="true"></i> 
+                            <i class="fa fa-fw fa-trash" aria-hidden="true"></i> 
                             Excluir        
                           </button>
                       </form>

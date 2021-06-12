@@ -3,7 +3,8 @@
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\CalendarioController;
-use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\ExperimentalController;
+use App\Http\Controllers\HorarioTurmaController;
 use App\Http\Controllers\ObservacaoController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TurmaController;
@@ -52,8 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/turmas', TurmaController::class)->except(['create']);
     
     // Rotas Horários
-    Route::post('/horarios', [HorarioController::class, 'store'])->name('horarios.store');
-    Route::delete('/horarios/{horario_id}', [HorarioController::class, 'destroy'])->name('horarios.destroy');
+    Route::post('/horarios', [HorarioTurmaController::class, 'store'])->name('horarios.store');
+    Route::delete('/horarios/{horario_id}', [HorarioTurmaController::class, 'destroy'])->name('horarios.destroy');
     
     // Rotas Avaliações
     Route::get('/avaliacoes/create/{aluno_id}', [AvaliacaoController::class, 'create'])->name('avaliacoes.create');
@@ -68,6 +69,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/observacoes/create/{aluno_id}', [ObservacaoController::class, 'create'])->name('observacoes.create');
     Route::resource('/observacoes', ObservacaoController::class)->except(['index', 'create'])->parameters([
         'observacoes' => 'observacao'
+    ]);
+
+    // Rotas Experimentais
+    Route::resource('/experimentais', ExperimentalController::class)->parameters([
+        'experimentais' => 'experimental'
     ]);
 });
 
