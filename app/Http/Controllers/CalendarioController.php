@@ -42,26 +42,6 @@ class CalendarioController extends Controller
             );
         }
 
-        // Adiciona as experimentais
-        foreach($experimentais as $experimental) {
-            $eventos[] = Calendar::event(
-                'Experimental de ' . $experimental->aluno->nome, // Titulo
-                false, // O dia todo?
-                null, // Data/Hora Inicio
-                null, // Data/Hora Fim
-                $horarioTurma->id, // ID (Opcional)
-                [
-                    'daysOfWeek' => [$horarioTurma->dia_da_semana], // Dia da Semana
-                    'startRecur' => $data_inicio,
-                    'endRecur' => $data_fim,
-                    'startTime' => $horarioTurma->horario_inicio,
-                    'endTime' => $horarioTurma->horario_fim,
-                    'url' => route('turmas.show', $horarioTurma->turma),
-                    'backgroundColor' => $horarioTurma->turma->cor_calendario,
-                    'borderColor' => $horarioTurma->turma->cor_calendario
-                ]
-            );
-        }
 
         $calendar = new Calendar();
 
