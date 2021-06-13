@@ -40,11 +40,32 @@
       </div>
       <form action="" method="get">
         <div class="modal-body">
-          <label for="data_inicio">Data Inicio:</label>
-          <input type="date" name="data_inicio" id="data_inicio" class="form-control mb-3" value="{{ date('Y-m-d', strtotime($data_inicio)) }}">
-          <label for="data_fim">Data Fim:</label>
-          <input type="date" name="data_fim" id="data_fim" class="form-control mb-3" value="{{ date('Y-m-d', strtotime($data_fim)) }}">
+          <p class="lead">Data</p>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="data_inicio">Data Inicio:</label>
+              <input type="date" name="data_inicio" id="data_inicio" class="form-control mb-3" value="{{ date('Y-m-d', strtotime($data_inicio)) }}">
+            </div>
+            <div class="col-md-6">
+              <label for="data_fim">Data Fim:</label>
+              <input type="date" name="data_fim" id="data_fim" class="form-control mb-3" value="{{ date('Y-m-d', strtotime($data_fim)) }}">
+            </div>
+          </div>
 
+          <p class="lead">Exibição</p>
+          <div class="form-group">
+            <div class="form-check">
+              <input type="checkbox" name="mostrarTurmas" id="inputMostrarTurmas" class="form-check-input" 
+              {{ $mostrarTurmas = TRUE ? 'checked' : '' }}>
+              <label for="inputMostrarTurmas" class="form-check-label">Mostrar turmas</label>
+            </div>
+
+            <div class="form-check">
+              <input type="checkbox" name="mostrarExperimentais" id="inputMostrarExperimentais" class="form-check-input"
+              {{ $mostrarExperimentais = TRUE ? 'checked' : '' }}>
+              <label for="inputExperimentais" class="form-check-label">Mostrar experimentais</label>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

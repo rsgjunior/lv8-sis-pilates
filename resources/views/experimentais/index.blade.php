@@ -3,10 +3,46 @@
 @section('title', 'Aulas Experimentais')
 
 @section('content_header')
-    <h1>Experimentais</h1>
+    <h1>Experimentais ({{ $qtdExperimentais }})</h1>
 @stop
 
 @section('content')
+
+<!-- Modal Pesquisa -->
+<div class="modal fade" id="pesquisarModal" tabindex="-1" role="dialog" aria-labelledby="pesquisarModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="pesquisarModalLabel">Pesquisar Professor</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <form action="" method="get">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="inputCriterio">Critério</label>
+              <select name="criterio" id="inputCriterio" class="form-control">
+                <option value="cpf" {{ $criterio == 'cpf' ? 'selected' : ''}}>CPF</option>
+                <option value="registro_profissional" {{ $criterio == 'registro_profissional' ? 'selected' : ''}}>Registro Profissional</option>
+                <option value="nome" {{ $criterio == 'nome' ? 'selected' : ''}}>Nome</option>
+                <option value="email" {{ $criterio == 'email' ? 'selected' : ''}}>E-mail</option>
+              </select>
+            </div>
+    
+            <div class="form-group">
+              <label for="inputPesquisa">Pesquisa</label>
+              <input type="text" id="inputPesquisa" name="pesquisa" class="form-control" placeholder="Digite o valor que deseja procurar" value="{{ $pesquisa }}">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Pesquisar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Fim Modal Pesquisa -->
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -15,6 +51,11 @@
                     <i class="fas fa-plus-circle"></i> 
                     Cadastrar nova
                 </a>
+
+                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#pesquisarModal">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    Pesquisar
+                </button>
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
@@ -23,9 +64,10 @@
                 <tr>
                     <th width="10px">ID</th>
                     <th>Aluno</th>
-                    <th>Data/Horário</th>
+                    <th>Data</th>
+                    <th>Horário</th>
                     <th>Status</th>
-                    <th>Ações</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,16 +83,22 @@
                             </a>
                         </td>
 
-                        <!-- Data/Hora -->
+                        <!-- Data -->
                         <td>
-                            {{ date('d/m/Y', strtotime($experimental->data)) }}, 
+                            {{ date('d/m/Y', strtotime($experimental->data)) }}
+                        </td>
+
+                        <!-- Horário -->
+                        <td>
                             {{ date('H:i', strtotime($experimental->horario_inicio)) }} 
                             - 
                             {{ date('H:i', strtotime($experimental->horario_fim)) }}
                         </td>
 
                         <!-- Status -->
-                        <td><span class="tag tag-success">{{ $experimental->status }}</span></td>
+                        <td>
+                            {!! $experimental->status_badge !!}
+                        </td>
 
                         <!-- Ações -->
                         <td>
@@ -61,7 +109,7 @@
 
                             <a href="{{ route('experimentais.edit', $experimental) }}" class="btn btn-info btn-sm">
                                 <i class="fas fa-edit"></i> 
-                                Editar
+                                Atualizar
                             </a>
 
                             <form action="{{ route('experimentais.destroy', $experimental) }}" method="post" class="d-inline-block">
@@ -80,6 +128,9 @@
             </table>
             </div>
             <!-- /.card-body -->
+            <div class="card-footer pb-0">
+                {{ $experimentais->links() }}
+            </div>
         </div>
         <!-- /.card -->
     </div>

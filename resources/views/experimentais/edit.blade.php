@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Nova experimental')
+@section('title', 'Atualizar experimental')
 
 @section('content_header')
-    <h1>Editar experimental</h1>
+    <h1>Atualizar experimental</h1>
 @stop
 
 @section('content')
@@ -55,6 +55,13 @@
                     </div>
                 </div>
 
+                <div class="form-group row">
+                    <label for="inputCorCalendario" class="col-sm-2 col-form-label">Cor calendário</label>
+                    <div class="col-sm-1">
+                        <input type="color" class="form-control" id="inputCorCalendario" value="{{ $experimental->cor_calendario }}" name="cor_calendario" required>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="inputObservacao">Observação</label>
                     <textarea class="form-control" name="observacao" id="inputObservacao" cols="30" rows="5">{{ $experimental->observacao }}</textarea>
@@ -65,9 +72,10 @@
                 <div class="form-group">
                     <label for="selectStatus">Status</label>
                     <select name="status" id="selectStatus" class="form-control">
-                        <option value="0">Marcada</option>
-                        <option value="1">Realizada</option>
-                        <option value="2">Não compareceu</option>
+                        <option value="0" {{ $experimental->status == 0 ? 'selected' : ''}}>Marcada</option>
+                        <option value="1" {{ $experimental->status == 1 ? 'selected' : ''}}>Realizou</option>
+                        <option value="2" {{ $experimental->status == 2 ? 'selected' : ''}}>Matriculou</option>
+                        <option value="3" {{ $experimental->status == 3 ? 'selected' : ''}}>Não compareceu</option>
                     </select>
                 </div>
 

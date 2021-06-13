@@ -6,7 +6,7 @@
       @if($pesquisa)
         <h1>Pesquisando por: "{{ $pesquisa }}"</h1>
       @else
-        <h1>Turmas de Pilates</h1>
+        <h1>Turmas de Pilates ({{ $qtdTurmas }})</h1>
       @endif
       
 
@@ -45,7 +45,7 @@
                 <th>Alunos</th>
                 <th>Cor</th>
                 <th>Horário(s)</th>
-                <th>Ações</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -68,8 +68,12 @@
                   @endforelse
                 </td>
                 <td>
+                  <a href="{{ route('turmas.show', ['turma' => $turma->id]) }}" class="btn btn-primary">
+                    <i class="fa fa-eye"></i>
+                    Ver
+                  </a>
                   <a href="{{ route('turmas.edit', ['turma'=>$turma->id]) }}" class="btn btn-info">
-                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                    <i class="fa fa-edit" aria-hidden="true"></i>
                     Editar        
                   </a>
                   <form style="display: inline-block" action="{{ route('turmas.destroy', ['turma'=>$turma->id]) }}" method="post">
@@ -81,10 +85,6 @@
                     </button>
                   </form>
 
-                    <a href="{{ route('turmas.show', ['turma' => $turma->id]) }}" class="btn btn-success">
-                      <i class="fa fa-plus-circle"></i>
-                      Matricular
-                    </a>
                   
                 </td>
             </tr>

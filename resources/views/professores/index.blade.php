@@ -72,7 +72,7 @@
                 <th>Turmas</th>
                 <th>E-mail</th>
                 <th>Idade</th>
-                <th>Ações</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>

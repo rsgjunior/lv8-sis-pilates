@@ -54,6 +54,13 @@
                     </div>
                 </div>
 
+                <div class="form-group row">
+                    <label for="inputCorCalendario" class="col-sm-2 col-form-label">Cor calendário</label>
+                    <div class="col-sm-1">
+                        <input type="color" class="form-control" id="inputCorCalendario" value="#65af56" name="cor_calendario" required>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="inputObservacao">Observação</label>
                     <textarea class="form-control" name="observacao" id="inputObservacao" cols="30" rows="5">{{ old('observacao') }}</textarea>

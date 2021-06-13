@@ -29,7 +29,8 @@ class StoreExperimentalRequest extends FormRequest
             'data' => 'required|date|after_or_equal:today',
             'horario_inicio' => 'required|date_format:H:i',
             'horario_fim' => 'required|date_format:H:i|after:horario_inicio',
-            'observacao' => 'nullable|string|max:500'
+            'observacao' => 'nullable|string|max:500',
+            'cor_calendario' => 'nullable|string|size:7'
         ];
     }
 }

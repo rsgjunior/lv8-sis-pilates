@@ -42,7 +42,12 @@
                 <tbody>
                   <tr>
                     <td width="150px"><strong>Aluno<strong></td>
-                    <td>{{ $experimental->aluno->nome }}</td>
+                    <td>
+                      {{ $experimental->aluno->nome }}
+                      <a href="{{ route('alunos.show', $experimental->aluno) }}">
+                        (Ver Cadastro)
+                      </a>
+                    </td>
                   </tr>
 
                   <tr>
@@ -64,7 +69,17 @@
 
                   <tr>
                     <td><strong>Status<strong></td>
-                    <td>{{ $experimental->status }}</td>
+                    <td>{!! $experimental->status_badge !!}</td>
+                  </tr>
+
+                  <tr>
+                    <td><strong>Cor calendário</strong></td>
+                    <td>
+                      <span style="color: {{ $experimental->cor_calendario }}">
+                        <i class="fas fa-square"></i>
+                      </span>
+                      {{ $experimental->cor_calendario }}
+                    </td>
                   </tr>
 
                   <tr>

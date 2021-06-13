@@ -23,7 +23,8 @@ class CreateExperimentaisTable extends Migration
             $table->time('horario_fim');
             $table->string('observacao', 500)->nullable();
             $table->string('feedback', 500)->nullable();
-            $table->boolean('status');
+            $table->tinyInteger('status')->default(0); // 0 - Marcada, 1 - Realizou, 2 - Matriculou, 3 - Não compareceu
+            $table->string('cor_calendario', 7)->default('#65af56');
             $table->timestamps();
         });
     }

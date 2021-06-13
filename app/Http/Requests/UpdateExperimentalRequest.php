@@ -29,8 +29,9 @@ class UpdateExperimentalRequest extends FormRequest
             'horario_inicio' => 'required|date_format:H:i',
             'horario_fim' => 'required|date_format:H:i|after:horario_inicio',
             'observacao' => 'nullable|string|max:500',
-            'status' => ['required', Rule::in([0, 1, 2])],
-            'feedback' => 'nullable|string|max:500'
+            'status' => ['required', Rule::in([0, 1, 2, 3])],
+            'feedback' => 'nullable|string|max:500',
+            'cor_calendario' => 'nullable|string|size:7'
         ];
     }
 }

@@ -21,7 +21,7 @@
 
                             <div class="col-md-2">
                                 <label for="inputCorCalendario">Cor</label>
-                                <input type="color" value="#007bff" class="form-control" id="inputNome" name="cor_calendario" required>
+                                <input type="color" value="#3788D8" class="form-control" id="inputNome" name="cor_calendario" required>
                             </div>
                         </div>
 

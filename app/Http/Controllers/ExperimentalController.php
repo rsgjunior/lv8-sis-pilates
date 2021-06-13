@@ -6,7 +6,6 @@ use App\Http\Requests\StoreExperimentalRequest;
 use App\Http\Requests\UpdateExperimentalRequest;
 use App\Models\Experimental;
 use App\Services\AlunoService;
-use Illuminate\Http\Request;
 
 class ExperimentalController extends Controller
 {
@@ -17,9 +16,18 @@ class ExperimentalController extends Controller
      */
     public function index()
     {
-        $experimentais = Experimental::all();
+        $criterio = request('criterio');
+        $pesquisa = request('pesquisa');
 
-        return view('experimentais.index', compact('experimentais'));
+        if($pesquisa) {
+            $experimentais = Experimental::where($criterio, 'LIKE', '%' . $pesquisa . '%')->paginate(10);
+        }else {
+            $experimentais = Experimental::orderBy('data', 'DESC')->paginate(10);
+        }
+
+        $qtdExperimentais = Experimental::count();
+
+        return view('experimentais.index', compact('experimentais', 'qtdExperimentais', 'criterio', 'pesquisa'));
     }
 
     /**
@@ -47,6 +55,7 @@ class ExperimentalController extends Controller
                 'horario_inicio' => $request->horario_inicio,
                 'horario_fim' => $request->horario_fim,
                 'observacao' => $request->observacao,
+                'cor_calendario' => $request->cor_calendario,
                 'status' => 0
             ]);
 

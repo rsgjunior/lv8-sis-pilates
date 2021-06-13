@@ -7,7 +7,6 @@ use App\Http\Requests\MatricularAlunoRequest;
 use App\Models\Aluno;
 use App\Models\Professor;
 use App\Models\Turma;
-use Illuminate\Http\Request;
 
 class TurmaController extends Controller
 {
@@ -21,14 +20,17 @@ class TurmaController extends Controller
         $pesquisa = request('pesquisa');
 
         if($pesquisa){
-            $turmas = Turma::where('nome', 'LIKE', $pesquisa)->paginate(15);
+            $turmas = Turma::where('nome', 'LIKE', '%' . $pesquisa . '%')->paginate(15);
         }else{
             $turmas = Turma::paginate(15);
         }
 
+        $qtdTurmas = Turma::count();
+
         return view('turmas.index', [
             'turmas' => $turmas,
-            'pesquisa' => $pesquisa
+            'pesquisa' => $pesquisa,
+            'qtdTurmas' => $qtdTurmas
         ]);
     }
 
