@@ -3,13 +3,22 @@
 @section('title', 'Calendário')
 
 @section('content_header')
-  <h1>
-    Calendário
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#configCalendarioModal">
-      <i class="fas fa-tools"></i>
-    </button>
-  </h1>
+  <div class="row mb-2">
+    <div class="col-md-6">
+      <h1>
+        Calendário
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#configCalendarioModal">
+          <i class="fas fa-tools"></i>
+        </button>
+      </h1>
+    </div>
+    <div class="col-md-6">
+        <div class="float-sm-right">
+            {{ Breadcrumbs::render('calendario.index') }}
+        </div>
+    </div>
+  </div>
 @stop
 
 @section('content')
@@ -43,7 +52,7 @@
           <p class="lead">Data</p>
           <div class="form-group row">
             <div class="col-md-6">
-              <label for="data_inicio">Data Inicio:</label>
+              <label for="data_inicio">Data Inicio: </label>
               <input type="date" name="data_inicio" id="data_inicio" class="form-control mb-3" value="{{ date('Y-m-d', strtotime($data_inicio)) }}">
             </div>
             <div class="col-md-6">
@@ -55,15 +64,15 @@
           <p class="lead">Exibição</p>
           <div class="form-group">
             <div class="form-check">
-              <input type="checkbox" name="mostrarTurmas" id="inputMostrarTurmas" class="form-check-input" 
-              {{ $mostrarTurmas = TRUE ? 'checked' : '' }}>
-              <label for="inputMostrarTurmas" class="form-check-label">Mostrar turmas</label>
+              <input type="checkbox" name="esconderTurmas" id="inputEsconderTurmas" class="form-check-input" value="TRUE"
+              {{ $esconderTurmas == TRUE ? 'checked' : '' }}>
+              <label for="inputEsconderTurmas" class="form-check-label">Esconder turmas </label>
             </div>
 
             <div class="form-check">
-              <input type="checkbox" name="mostrarExperimentais" id="inputMostrarExperimentais" class="form-check-input"
-              {{ $mostrarExperimentais = TRUE ? 'checked' : '' }}>
-              <label for="inputExperimentais" class="form-check-label">Mostrar experimentais</label>
+              <input type="checkbox" name="esconderExperimentais" id="inputEsconderExperimentais" class="form-check-input" value="TRUE"
+              {{ $esconderExperimentais == TRUE ? 'checked' : '' }}>
+              <label for="inputEsconderExperimentais" class="form-check-label">Esconder experimentais</label>
             </div>
           </div>
         </div>

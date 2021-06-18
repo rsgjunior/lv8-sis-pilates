@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return redirect('/dashboard');
-});
+})->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
     // Página Inicial

@@ -3,11 +3,20 @@
 @section('title', 'Lista de Professores')
 
 @section('content_header')
-  @if($pesquisa)
-  <h1>Pesquisando por: "{{ $pesquisa }}" - Critério {{ $criterio }}</h1>
-  @else
-  <h1>Lista de Professores ({{ $qtdProfessores }})</h1>
-  @endif
+  <div class="row mb-2">
+    <div class="col-md-6">
+      @if($pesquisa)
+      <h1>Pesquisando por: "{{ $pesquisa }}" - Critério: {{ array_search($criterio, $criteriosValidos) }}</h1>
+      @else
+      <h1>Lista de Professores ({{ $qtdProfessores }})</h1>
+      @endif
+    </div>
+    <div class="col-md-6">
+        <div class="float-sm-right">
+            {{ Breadcrumbs::render('professores.index') }}
+        </div>
+    </div>
+  </div>
 @stop
 
 @section('content')
@@ -25,10 +34,10 @@
           <div class="form-group">
             <label for="inputCriterio">Critério</label>
             <select name="criterio" id="inputCriterio" class="form-control">
-              <option value="cpf" {{ $criterio == 'cpf' ? 'selected' : ''}}>CPF</option>
-              <option value="registro_profissional" {{ $criterio == 'registro_profissional' ? 'selected' : ''}}>Registro Profissional</option>
-              <option value="nome" {{ $criterio == 'nome' ? 'selected' : ''}}>Nome</option>
-              <option value="email" {{ $criterio == 'email' ? 'selected' : ''}}>E-mail</option>
+              @while($criterioValue = current($criteriosValidos))
+              <option value="{{ $criterioValue }}" {{ $criterioValue == $criterio ? 'selected' : ''}}>{{ key($criteriosValidos) }}</option>
+              {{ next($criteriosValidos) }}
+              @endwhile
             </select>
           </div>
   

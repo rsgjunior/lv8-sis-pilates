@@ -3,8 +3,16 @@
 @section('title', 'Página do Professor')
 
 @section('content_header')
+  <div class="row mb-2">
+    <div class="col-md-6">
       <h1>Perfil de {{ $professor->nome }}</h1>
-
+    </div>
+    <div class="col-md-6">
+        <div class="float-sm-right">
+            {{ Breadcrumbs::render('professores.show', $professor) }}
+        </div>
+    </div>
+  </div>
 @stop
 
 @section('content')

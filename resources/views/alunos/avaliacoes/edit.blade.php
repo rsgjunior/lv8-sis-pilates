@@ -3,8 +3,16 @@
 @section('title', 'Editando Avaliação')
 
 @section('content_header')
-      <h1>Editando avaliação #{{ $avaliacao->id }} do aluno {{ $avaliacao->aluno->nome }}</h1>
-
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <h1>Editando avaliação #{{ $avaliacao->id }} do aluno {{ $avaliacao->aluno->nome }}</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="float-sm-right">
+                {{ Breadcrumbs::render('avaliacoes.edit', $avaliacao) }}
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('content')

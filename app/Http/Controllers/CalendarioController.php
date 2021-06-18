@@ -21,18 +21,20 @@ class CalendarioController extends Controller
         $data_inicio = $data_inicio_pesquisa ? $data_inicio_pesquisa : Carbon::today()->subMonth();
         $data_fim = $data_fim_pesquisa ? $data_fim_pesquisa : Carbon::today()->addMonth();
 
-        // Define o que será mostrado no calendário
-        $mostrarTurmas = request('mostrarTurmas') ? request('mostrarTurmas') : TRUE;
-        $mostrarExperimentais = request('mostrarExperimentais') ? request('mostrarExperimentais') : TRUE;
+        /**
+         * Define o que será exibido no calendário
+         */
+        $esconderTurmas = request('esconderTurmas') ? TRUE : FALSE;
+        $esconderExperimentais = request('esconderExperimentais') ? TRUE : FALSE;
 
         // Inicia o array de eventos vazio
         $eventos = [];
 
-        // Carrega as turmas do banco e adiciona no 
-        if($mostrarTurmas) {
+        // Carrega as turmas do banco e adiciona no calendário
+        if(!($esconderTurmas)) {
             $horariosTurmas = HorarioTurma::all();
             foreach($horariosTurmas as $horarioTurma) {
-    
+
                 $eventos[] = Calendar::event(
                     $horarioTurma->turma->nome . ' (' . count($horarioTurma->turma->alunos) . ')', // Titulo
                     false, // O dia todo?
@@ -55,7 +57,7 @@ class CalendarioController extends Controller
         }
 
         // Carrega as aulas experimentais do banco e adiciona no calendário
-        if($mostrarExperimentais) {
+        if(!($esconderExperimentais)) {
             $experimentais = Experimental::all();
             foreach($experimentais as $experimental) {
     
@@ -108,8 +110,8 @@ class CalendarioController extends Controller
             'calendario' => $calendar,
             'data_inicio' => $data_inicio,
             'data_fim' => $data_fim,
-            'mostrarTurmas' => $mostrarTurmas,
-            'mostrarExperimentais' => $mostrarExperimentais
+            'esconderTurmas' => $esconderTurmas,
+            'esconderExperimentais' => $esconderExperimentais
         ]);
 
     }

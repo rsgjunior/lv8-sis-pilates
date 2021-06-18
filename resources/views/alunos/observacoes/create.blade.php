@@ -3,13 +3,23 @@
 @section('title', 'Nova Observação')
 
 @section('content_header')
-    <h1>Criar Observação para o Aluno {{ $aluno->nome }}</h1>
+    
+    <div class="row mb-2">
+        <div class="col-md-6">
+          <h1>Criar Observação para o Aluno {{ $aluno->nome }}</h1>
+        </div>
+        <div class="col-md-6">
+          <div class="float-sm-right">
+            {{ Breadcrumbs::render('observacoes.create', $aluno) }}
+          </div>
+        </div>
+    </div>
 @stop
 
 @section('content')
 <div class="row">
     <!-- left column -->
-    <div class="col-md-8">
+    <div class="col-md-6">
       <!-- general form elements -->
       <div class="card card-default">
         <div class="card-header">

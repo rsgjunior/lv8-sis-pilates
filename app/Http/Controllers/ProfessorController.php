@@ -19,11 +19,21 @@ class ProfessorController extends Controller
     {
         $pesquisa = request('pesquisa');
         $criterio = request('criterio');
-        $criterios_validos = ['cpf', 'registro_profissional', 'nome', 'email'];
+
+        /**
+         * Critérios para a busca
+         * Formato: "Nome da Option HTML" => "nome da coluna no banco"
+         */
+        $criteriosValidos = [
+            "CPF" => "cpf",
+            "Registro Profissional" => "registro_profissional",
+            "Nome" => "nome",
+            "E-mail" => "email"
+        ];
 
         $qtdProfessores = Professor::count();
 
-        if($pesquisa && in_array($criterio, $criterios_validos)) {
+        if($pesquisa && in_array($criterio, $criteriosValidos)) {
             $professores = Professor::where([
                 [$criterio, 'LIKE', '%' . $pesquisa . '%']
             ])->paginate(15);
@@ -37,6 +47,7 @@ class ProfessorController extends Controller
             'professores' => $professores,
             'pesquisa' => $pesquisa,
             'criterio' => $criterio,
+            'criteriosValidos' => $criteriosValidos,
             'qtdProfessores' => $qtdProfessores
         ]);
     }

@@ -19,6 +19,17 @@ class ExperimentalController extends Controller
         $criterio = request('criterio');
         $pesquisa = request('pesquisa');
 
+        /**
+         * Critérios para a busca
+         * Formato: "Nome da Option HTML" => "nome da coluna no banco"
+         */
+        $criteriosValidos = [
+            "CPF" => "cpf",
+            "RG" => "rg",
+            "Nome" => "nome",
+            "E-mail" => "email"
+        ];
+
         if($pesquisa) {
             $experimentais = Experimental::where($criterio, 'LIKE', '%' . $pesquisa . '%')->paginate(10);
         }else {

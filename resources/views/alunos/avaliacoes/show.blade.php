@@ -3,7 +3,39 @@
 @section('title', 'Avaliação')
 
 @section('content_header')
-      <h1>Página da Avaliação</h1>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <h1>
+                Avaliação #{{ $avaliacao->id }}
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <i class="fas fa-lg fa-tools"></i>
+                </button>
+                <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-10px, 38px, 0px);">
+                    <li>
+                        <a href="{{ route('avaliacoes.edit', $avaliacao) }}" class="dropdown-item">
+                            <i class="fa fa-fw fa-edit" aria-hidden="true"></i>
+                            Editar        
+                        </a>
+                    </li>
+                    <li>
+                        <form action="{{ route('avaliacoes.destroy', $avaliacao) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="dropdown-item">
+                                <i class="fa fa-fw fa-trash" aria-hidden="true"></i> 
+                                Excluir        
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </h1>
+        </div>
+        <div class="col-md-6">
+            <div class="float-sm-right">
+                {{ Breadcrumbs::render('avaliacoes.show', $avaliacao) }}
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('content')

@@ -3,6 +3,8 @@
 @section('title', 'Visualizando turma')
 
 @section('content_header')
+  <div class="row mb-2">
+    <div class="col-md-6">
       <h1>
         {{ $turma->nome }}
         <button type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -27,6 +29,13 @@
           </li>
         </ul>
       </h1>
+    </div>
+    <div class="col-md-6">
+        <div class="float-sm-right">
+            {{ Breadcrumbs::render('turmas.show', $turma) }}
+        </div>
+    </div>
+  </div>
 @stop
 
 @section('content')

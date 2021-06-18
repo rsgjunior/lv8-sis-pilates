@@ -3,7 +3,16 @@
 @section('title', 'Aulas Experimentais')
 
 @section('content_header')
-    <h1>Experimentais ({{ $qtdExperimentais }})</h1>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <h1>Experimentais ({{ $qtdExperimentais }})</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="float-sm-right">
+                {{ Breadcrumbs::render('experimentais.index') }}
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('content')
@@ -13,7 +22,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="pesquisarModalLabel">Pesquisar Professor</h4>
+          <h4 class="modal-title" id="pesquisarModalLabel">Pesquisar Experimental</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <form action="" method="get">

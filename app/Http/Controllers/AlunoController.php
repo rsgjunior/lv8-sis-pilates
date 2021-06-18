@@ -19,17 +19,27 @@ class AlunoController extends Controller
     {
         $pesquisa = request('pesquisa');
         $criterio = request('criterio');
-        $criterios_validos = ['cpf', 'rg', 'nome', 'email'];
+
+        /**
+         * Critérios para a busca
+         * Formato: "Nome da Option HTML" => "nome da coluna no banco"
+         */
+        $criteriosValidos = [
+            "CPF" => "cpf",
+            "RG" => "rg",
+            "Nome" => "nome",
+            "E-mail" => "email"
+        ];
 
         $qtdAlunos = Aluno::count();
 
-        if($pesquisa && in_array($criterio, $criterios_validos)) {
+        if($pesquisa && in_array($criterio, $criteriosValidos)) {
             $alunos = Aluno::where([
                 [$criterio, 'LIKE', '%' . $pesquisa . '%']
             ])->paginate(9);
         }else{
-            $pesquisa = null;
-            $criterio = null;
+            $pesquisa = NULL;
+            $criterio = NULL;
             $alunos = Aluno::orderBy('nome')->paginate(9);
         }
 
@@ -37,6 +47,7 @@ class AlunoController extends Controller
             'alunos' => $alunos,
             'pesquisa' => $pesquisa,
             'criterio' => $criterio,
+            'criteriosValidos' => $criteriosValidos,
             'qtdAlunos' => $qtdAlunos
         ]);
     }

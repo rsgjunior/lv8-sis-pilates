@@ -5,8 +5,6 @@
         </div>
 
         <div class="card-body">
-            
-                
                 @forelse ($avaliacao->exames as $exame)
                 <div class="col-md-12">
                     <div class="callout callout-info">

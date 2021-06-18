@@ -3,8 +3,17 @@
 @section('title', 'Criando Avaliação')
 
 @section('content_header')
-      <h1>Nova avaliação para {{ $aluno->nome }}</h1>
-
+    
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <h1>Nova avaliação para {{ $aluno->nome }}</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="float-sm-right">
+                {{ Breadcrumbs::render('avaliacoes.create', $aluno) }}
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('content')

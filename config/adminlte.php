@@ -236,6 +236,11 @@ return [
         ],
         ['header' => 'MENU'],
         [
+            'text' => 'Início',
+            'url'  => 'home',
+            'icon' => 'fas fa-fw fa-home',
+        ],
+        [
             'text' => 'Alunos',
             'url'  => 'alunos',
             'icon' => 'fas fa-fw fa-users',

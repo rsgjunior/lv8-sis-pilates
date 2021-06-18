@@ -3,13 +3,20 @@
 @section('title', 'Turmas de Pilates')
 
 @section('content_header')
+  <div class="row mb-2">
+    <div class="col-md-6">
       @if($pesquisa)
         <h1>Pesquisando por: "{{ $pesquisa }}"</h1>
       @else
         <h1>Turmas de Pilates ({{ $qtdTurmas }})</h1>
       @endif
-      
-
+    </div>
+    <div class="col-md-6">
+        <div class="float-sm-right">
+            {{ Breadcrumbs::render('turmas.index') }}
+        </div>
+    </div>
+  </div>
 @stop
 
 @section('content')

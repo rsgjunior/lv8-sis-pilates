@@ -3,7 +3,16 @@
 @section('title', 'Atualizar experimental')
 
 @section('content_header')
-    <h1>Atualizar experimental</h1>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <h1>Atualizar experimental - {{ $experimental->aluno->nome }}</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="float-sm-right">
+                {{ Breadcrumbs::render('experimentais.edit', $experimental) }}
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('content')

@@ -3,7 +3,16 @@
 @section('title', 'Cadastrar Aluno')
 
 @section('content_header')
-    <h1><i class="fa fa-user-plus"></i> Cadastrar novo aluno</h1>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <h1><i class="fa fa-user-plus"></i> Cadastrar novo aluno</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="float-sm-right">
+                {{ Breadcrumbs::render('alunos.create') }}
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('content')
