@@ -35,6 +35,13 @@ class Aluno extends Model
         return $this->hasOne(Experimental::class, 'aluno_id');
     }
 
+    public function aulas() {
+        return $this->belongsToMany(Aula::class, 'alunos_aulas_turmas', 'aluno_id', 'aula_turma_id')
+                        ->as('presencas')
+                        ->withPivot('presente', 'motivo_falta')
+                        ->withTimestamps();
+    }
+
     // Métodos
     public function getIdadeAttribute(){
         return Carbon::parse($this->data_nascimento)->age;

@@ -7,7 +7,7 @@
     <div class="col-md-6">
       <h1>
         {{ $turma->nome }}
-        <button type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
           <i class="fas fa-lg fa-tools"></i>
         </button>
         <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-10px, 38px, 0px);">
@@ -64,15 +64,6 @@
           </div>
           <!-- /.col -->
         </div>
-        <!-- info row -->
-        <div class="row invoice-info">
-          <div class="col-sm-4 invoice-col">
-            
-            
-            
-          </div>
-        </div>
-        <!-- /.row -->
 
         <!-- Table row -->
         <div class="row">
@@ -92,7 +83,7 @@
                   <tr>
                     <td>
                       <img 
-                        class="table-img"
+                        class="table-avatar"
                         @if($aluno->foto)
                           src="{{ url('/storage/fotos/'. $aluno->id . '/' . $aluno->foto) }}" 
                         @else
@@ -239,10 +230,9 @@
 
 @section('css')
 <style>
-  .table-img {
+  .table-avatar {
+    border-radius: 50%;
     width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 99999px;
   }
 </style>
 @stop

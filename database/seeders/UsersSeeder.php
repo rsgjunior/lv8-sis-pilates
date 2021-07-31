@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Aluno;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class AlunoSeeder extends Seeder
+class UsersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class AlunoSeeder extends Seeder
      */
     public function run()
     {
-        Aluno::factory(25)->create();
+        User::factory()->times(10)->create();
     }
 }

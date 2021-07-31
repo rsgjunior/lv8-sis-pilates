@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\AulaController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\ExperimentalController;
@@ -8,7 +9,7 @@ use App\Http\Controllers\HorarioTurmaController;
 use App\Http\Controllers\ObservacaoController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TurmaController;
-
+use App\Models\Aula;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,6 +75,12 @@ Route::group(['middleware' => 'auth'], function () {
     // Rotas Experimentais
     Route::resource('/experimentais', ExperimentalController::class)->parameters([
         'experimentais' => 'experimental'
+    ]);
+
+    // Rotas Aulas
+    Route::get('/aulas/create/{turma_id}', [AulaController::class, 'create'])->name('aulas.create');
+    Route::resource('/aulas', AulaController::class)->except(['edit', 'update', 'create'])->parameters([
+        'aulas' => 'aula'
     ]);
 });
 
