@@ -56,8 +56,8 @@ class TurmaController extends Controller
     public function show($id)
     {
         $turma = Turma::findOrFail($id);
-        $alunos = Aluno::all();
-        $professores = Professor::all();
+        $alunos = Aluno::orderBy('nome')->get();
+        $professores = Professor::orderBy('nome')->get();
         $horarios = $turma->horarios()->orderBy('dia_da_semana')->get();
 
         return view('turmas.show', [

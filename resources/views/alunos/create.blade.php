@@ -33,7 +33,7 @@
                 <!-- form start -->
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputNome">Nome</label>
+                            <label for="inputNome" class="text-danger">Nome *</label>
                             <input type="text" class="form-control" id="inputNome" name="nome" placeholder="Digite o nome" value="{{ old('nome') }}" required autofocus>
                         </div>
 
@@ -44,7 +44,7 @@
 
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                <label for="inputTelefone">Telefone</label>
+                                <label for="inputTelefone" class="text-danger">Telefone *</label>
                                 <input type="tel" class="form-control" id="inputTelefone" name="telefone" placeholder="(xx) xxxxx-xxxx" value="{{ old('telefone') }}" required>
                             </div>
                         </div>

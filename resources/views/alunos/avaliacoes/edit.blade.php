@@ -43,7 +43,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputAltura">Altura</label>
-                                <input type="number" class="form-control" id="exampleInputAltura" name="altura" placeholder="Entre com a altura" value="{{ $avaliacao->altura }}">
+                                <input type="number" step="0.01" class="form-control" id="exampleInputAltura" name="altura" placeholder="Entre com a altura" value="{{ $avaliacao->altura }}">
                             </div>
                         </div>
                         <!-- /.col -->
@@ -69,12 +69,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputAtividade">Atividades Física</label>
-                                <input type="text" class="form-control" id="exampleInputAtividade" name="atividade_fisica" placeholder="Enter email" value="{{ $avaliacao->atividade_fisica }}">
+                                <input type="text" class="form-control" id="exampleInputAtividade" name="atividade_fisica" placeholder="Atividades que o paciente pratica" value="{{ $avaliacao->atividade_fisica }}">
                             </div>
     
                             <div class="form-group">
                                 <label for="exampleInputObjetivo">Objetivo</label>
-                                <input type="text" class="form-control" id="exampleInputObjetivo" name="objetivo" placeholder="Enter email" value="{{ $avaliacao->objetivo }}">
+                                <input type="text" class="form-control" id="exampleInputObjetivo" name="objetivo" placeholder="Objetivo do paciente com o pilates" value="{{ $avaliacao->objetivo }}">
                             </div>
                         <!-- /.form-group -->
                         
@@ -84,14 +84,14 @@
                             <div class="form-group">
                                 <label for="exampleInputConhece">Conhece ou já praticou Pilates</label>
                                 <select class="form-control" name="conhece_ou_praticou" id="">
-                                    <option value="0">Não</option>
+                                    <option value="0" {{ $avaliacao->conhece_ou_praticou == 0 ? 'selected' : '' }}>Não</option>
                                     <option value="1" {{ $avaliacao->conhece_ou_praticou == 1 ? 'selected' : '' }}>Sim</option>
                                 </select>
                             </div>
     
                             <div class="form-group">
                                 <label for="exampleInputMedicamentos">Medicamentos</label>
-                                <input type="text" class="form-control" name="medicamentos" id="exampleInputMedicamentos" placeholder="Enter email" value="{{ $avaliacao->medicamentos }}">
+                                <input type="text" class="form-control" name="medicamentos" id="exampleInputMedicamentos" placeholder="Medicamentos que o paciente usa" value="{{ $avaliacao->medicamentos }}">
                             </div>
                         </div>
                         <!-- /.col -->

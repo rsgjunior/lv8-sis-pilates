@@ -13,7 +13,7 @@ class Aluno extends Model
     protected $table = 'alunos';
 
     protected $fillable = [
-        'nome', 'email', 'data_nascimento', 'profissao', 'sexo', 'telefone','telefone2', 
+        'nome', 'email', 'data_nascimento', 'profissao', 'sexo', 'telefone', 
         'cep', 'endereco_rua', 'endereco_numero', 'endereco_complemento',
         'endereco_estado', 'endereco_cidade', 'endereco_bairro', 'rg', 'cpf', 'foto'
     ];

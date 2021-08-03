@@ -76,10 +76,12 @@
         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
           <div class="card bg-light">
             <div class="card-header text-muted border-bottom-0">
-              @if($aluno->profissao)
-                {{ $aluno->profissao }}
+              @if(count($aluno->turmas))
+                <span class="text-success">
+                  Matriculado em {{ count($aluno->turmas) }} turma(s)
+                </span>
               @else
-                Profissão não informada
+                <span class="text-danger">Sem matrícula vigente</span>
               @endif
             </div>
             <div class="card-body pt-0">

@@ -30,7 +30,7 @@
 
             <ul class="list-group list-group-unbordered mb-3">
               <li class="list-group-item">
-                <b>Cadastrado em</b> <a class="float-right">{{ date('d/m/Y, H:i', strtotime($aluno->created_at)) }}</a>
+                <b>Cadastrado em</b> <span class="float-right">{{ date('d/m/Y, H:i', strtotime($aluno->created_at)) }}</span>
               </li>
             </ul>
 
@@ -55,10 +55,12 @@
               </a>
 
               <p class="text-muted">
-                @foreach($turma->horarios as $horario)
+                @forelse($turma->horarios as $horario)
                   {{ $horario->dia_da_semana_str }}: {{ date('H:i', strtotime($horario->horario_inicio)) }} - {{ date('H:i', strtotime($horario->horario_fim)) }} 
                   <br>
-                @endforeach
+                @empty
+                  Essa turma não tem nenhum horário cadastrado
+                @endforelse
                 
               </p>
 
@@ -127,11 +129,6 @@
                         <tr>
                           <td><strong>Telefone</strong></td>
                           <td>{{ $aluno->telefone }}</td>
-                        </tr>
-        
-                        <tr>
-                          <td><strong>Telefone 2</strong></td>
-                          <td>{{ $aluno->telefone2 }}</td>
                         </tr>
         
                       </tbody>

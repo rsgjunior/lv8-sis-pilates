@@ -24,17 +24,17 @@ class UpdateAvaliacaoRequest extends FormRequest
     public function rules()
     {
         return [
-            'peso'                      => 'nullable|numeric',
-            'altura'                    => 'nullable|numeric',
-            'atividade_fisica'          => 'nullable|string',
-            'objetivo'                  => 'nullable|string',
-            'conhece_ou_praticou'       => 'nullable|string',
-            'medicamentos'              => 'nullable|string',
-            'queixa_principal'          => 'nullable|string',
-            'historia_medica_atual'     => 'nullable|string',
-            'fatores_que_pioram'        => 'nullable|string',
-            'historia_medica_passada'   => 'nullable|string',
-            'fatores_que_melhoram'      => 'nullable|string',
+            'peso'                      => 'required|numeric',
+            'altura'                    => 'required|numeric',
+            'atividade_fisica'          => 'required|string',
+            'objetivo'                  => 'required|string',
+            'conhece_ou_praticou'       => 'required|numeric|between:0,1',
+            'medicamentos'              => 'required|string',
+            'queixa_principal'          => 'required|string',
+            'historia_medica_atual'     => 'required|string',
+            'fatores_que_pioram'        => 'required|string',
+            'historia_medica_passada'   => 'required|string',
+            'fatores_que_melhoram'      => 'required|string',
             'observacao'                => 'nullable|string',
         ];
     }
