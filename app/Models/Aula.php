@@ -21,7 +21,7 @@ class Aula extends Model
     public function alunos() {
         return $this->belongsToMany(Aluno::class, 'alunos_aulas_turmas', 'aula_turma_id', 'aluno_id')
                         ->as('presencas')
-                        ->withPivot('presente', 'motivo_falta')
+                        ->withPivot('presente', 'motivo_falta', 'origem')
                         ->withTimestamps();
     }
 }

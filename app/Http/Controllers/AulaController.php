@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAulaRequest;
 use App\Models\Aula;
 use App\Models\Turma;
-use Illuminate\Http\Request;
+use App\Services\AlunoService;
 
 class AulaController extends Controller
 {
@@ -45,7 +45,9 @@ class AulaController extends Controller
     {
         $aula = Aula::create($request->validated());
 
-        return back()->with('success', 'Aula criada');
+        AlunoService::cadastrarNoDiarioDaTurma($aula->turma->alunos, $aula->turma->id);
+
+        return redirect(route('aulas.show', $aula))->with('success', 'Aula criada com sucesso');
     }
 
     /**
@@ -69,6 +71,10 @@ class AulaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $aula = Aula::findOrFail($id);
+
+        $aula->delete();
+
+        return redirect(route('turmas.show', $aula->turma));
     }
 }

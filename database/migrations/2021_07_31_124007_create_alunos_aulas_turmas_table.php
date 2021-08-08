@@ -17,8 +17,9 @@ class CreateAlunosAulasTurmasTable extends Migration
             $table->id();
             $table->foreignId('aula_turma_id')->constrained('aulas_turmas');
             $table->foreignId('aluno_id')->constrained('alunos');
-            $table->boolean('presente');
+            $table->tinyInteger('presente')->default(0);
             $table->text('motivo_falta')->nullable();
+            $table->string('origem', 25);
             $table->timestamps();
         });
     }

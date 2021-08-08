@@ -19,9 +19,9 @@ class TurmaController extends Controller
     {
         $pesquisa = request('pesquisa');
 
-        if($pesquisa){
+        if ($pesquisa) {
             $turmas = Turma::where('nome', 'LIKE', '%' . $pesquisa . '%')->paginate(15);
-        }else{
+        } else {
             $turmas = Turma::paginate(15);
         }
 
@@ -59,13 +59,15 @@ class TurmaController extends Controller
         $alunos = Aluno::orderBy('nome')->get();
         $professores = Professor::orderBy('nome')->get();
         $horarios = $turma->horarios()->orderBy('dia_da_semana')->get();
+        $ultimasAulas = $turma->aulas()->orderBy('data', 'desc')->limit(3)->get();
 
-        return view('turmas.show', [
-            'turma' => $turma,
-            'alunos' => $alunos,
-            'horarios' => $horarios,
-            'professores' => $professores
-        ]);
+        return view('turmas.show', compact(
+            'turma', 
+            'alunos', 
+            'professores', 
+            'horarios', 
+            'ultimasAulas'
+        ));
     }
 
     /**
@@ -112,20 +114,21 @@ class TurmaController extends Controller
         $turma->delete();
 
         return redirect()
-                ->route('turmas.index')
-                ->with('msg', 'Turma "' . $turma->nome . '" foi excluída');
+            ->route('turmas.index')
+            ->with('msg', 'Turma "' . $turma->nome . '" foi excluída');
     }
 
-    public function matricular(MatricularAlunoRequest $request) {
-        foreach($request->alunos_id as $id) {
+    public function matricular(MatricularAlunoRequest $request)
+    {
+        foreach ($request->alunos_id as $id) {
             $aluno = Aluno::findOrFail($id);
 
             // Verifica se esse aluno já está matriculado na turma
-            foreach($aluno->turmas as $turma) {
-                if($turma->id == $request->turma_id) {
+            foreach ($aluno->turmas as $turma) {
+                if ($turma->id == $request->turma_id) {
                     return redirect()
-                            ->back()
-                            ->with('error', 'Aluno já matriculado nesta turma');
+                        ->back()
+                        ->with('error', 'Aluno já matriculado nesta turma');
                 }
             }
 
@@ -135,7 +138,8 @@ class TurmaController extends Controller
         return redirect()->back()->with('success', 'Matricula feita com sucesso');
     }
 
-    public function desmatricular($turma_id, $aluno_id) {
+    public function desmatricular($turma_id, $aluno_id)
+    {
         $aluno = Aluno::findOrFail($aluno_id);
 
         $aluno->turmas()->detach($turma_id);
