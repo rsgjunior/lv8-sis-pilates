@@ -1,7 +1,7 @@
 const inputExames = document.querySelector("#inputExames");
 const divAppendExames = document.querySelector("#appendExames");
 
-inputExames.onchange = (e) => {
+inputExames.onchange = () => {
   limparBlocos();
   console.log(inputExames.files);
 

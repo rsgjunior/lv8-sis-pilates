@@ -9,7 +9,7 @@ class Aula extends Model
 {
     use HasFactory;
 
-    protected $table = 'aulas_turmas';
+    protected $table = 'aulas';
 
     protected $guarded = [];
 
@@ -19,8 +19,8 @@ class Aula extends Model
     }
 
     public function alunos() {
-        return $this->belongsToMany(Aluno::class, 'alunos_aulas_turmas', 'aula_turma_id', 'aluno_id')
-                        ->as('presencas')
+        return $this->belongsToMany(Aluno::class, 'alunos_aulas', 'aula_id', 'aluno_id')
+                        ->as('diario')
                         ->withPivot('presente', 'motivo_falta', 'origem')
                         ->withTimestamps();
     }

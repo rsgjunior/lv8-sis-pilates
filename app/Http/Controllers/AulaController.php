@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DefinirPresencasRequest;
 use App\Http\Requests\StoreAulaRequest;
+use App\Models\Aluno;
 use App\Models\Aula;
 use App\Models\Turma;
 use App\Services\AlunoService;
+use Illuminate\Http\Request;
 
 class AulaController extends Controller
 {
@@ -59,8 +62,10 @@ class AulaController extends Controller
     public function show($id)
     {
         $aula = Aula::findOrFail($id);
+        $alunosEsperados = $aula->alunos()->orderBy('nome')->get();
+        $alunos = Aluno::orderBy('nome')->get();
 
-        return view('aulas.show', compact('aula'));
+        return view('aulas.show', compact('aula', 'alunos', 'alunosEsperados'));
     }
 
     /**
@@ -76,5 +81,33 @@ class AulaController extends Controller
         $aula->delete();
 
         return redirect(route('turmas.show', $aula->turma));
+    }
+
+    public function definirPresencas(DefinirPresencasRequest $request, $aula_id) 
+    {
+        $aula = Aula::findOrFail($aula_id);
+
+        foreach($request->alunos as $aluno) {
+            $aula->alunos()->updateExistingPivot($aluno['id'], [
+                'presente' => $aluno['presente'],
+                'motivo_falta' => $aluno['motivo_falta']
+            ]);
+        }
+
+        return back()->with('success', 'Presenças definidas com sucesso!');
+    }
+
+    public function adicionarPresenca(Request $request, $aula_id)
+    {
+        
+    }
+
+    public function removerPresenca($aula_id, $aluno_id) 
+    {
+        $aula = Aula::findOrFail($aula_id);
+
+        $aula->alunos()->detach($aluno_id);
+
+        return back()->with('msg', 'Aluno removido da aula');
     }
 }

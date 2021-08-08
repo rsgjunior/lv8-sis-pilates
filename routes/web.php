@@ -78,6 +78,9 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     // Rotas Aulas
+    Route::post('/aulas/presencas/{aula_id}', [AulaController::class, 'definirPresencas'])->name('aulas.definirPresencas');
+    Route::post('/aulas/presencas/{aula_id}/adicionar', [AulaController::class, 'adicionarPresenca'])->name('aulas.adicionarPresenca');
+    Route::delete('/aulas/presencas/{aula_id}/remover/{aluno_id}', [AulaController::class, 'removerPresenca'])->name('aulas.removerPresenca');
     Route::get('/aulas/create/{turma_id}', [AulaController::class, 'create'])->name('aulas.create');
     Route::resource('/aulas', AulaController::class)->except(['edit', 'update', 'create'])->parameters([
         'aulas' => 'aula'

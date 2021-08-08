@@ -1,8 +1,8 @@
 <!-- The Modal -->
-<div class="modal fade" id="matricularModal">
-  <form action="{{ route('turmas.matricular') }}" method="post">
+<div class="modal fade" id="adicionarPresencaModal">
+  <form action="" method="post">
     @csrf
-    <input type="hidden" name="turma_id" value="{{ $turma->id }}">
+    <input type="hidden" name="turma_id" value="">
 
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -23,7 +23,8 @@
                 data-placeholder="Selecione os alunos" style="width: 100%;" data-select2-id="7" tabindex="-1"
                 aria-hidden="true">
                 @foreach ($alunos as $aluno)
-                  <option data-select2-id="{{ $aluno->id }}" value="{{ $aluno->id }}">{{ $aluno->nome }}
+                  <option data-select2-id="{{ $aluno->id }}" value="{{ $aluno->id }}">
+                    {{ $aluno->nome }}
                   </option>
                 @endforeach
 
@@ -37,7 +38,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">
-            <i class="fa fa-check"></i> Matricular
+            <i class="fa fa-check"></i> Adicionar
           </button>
         </div>
       </div>
