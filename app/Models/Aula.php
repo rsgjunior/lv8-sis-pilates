@@ -24,4 +24,5 @@ class Aula extends Model
                         ->withPivot('presente', 'motivo_falta', 'origem')
                         ->withTimestamps();
     }
+
 }

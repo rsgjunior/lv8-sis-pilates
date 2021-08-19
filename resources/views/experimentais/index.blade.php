@@ -56,10 +56,6 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('experimentais.create') }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-plus-circle"></i> 
-                    Cadastrar nova
-                </a>
 
                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#pesquisarModal">
                     <i class="fa fa-search" aria-hidden="true"></i>
@@ -116,9 +112,14 @@
                                 Ver
                             </a>
 
-                            <a href="{{ route('experimentais.edit', $experimental) }}" class="btn btn-info btn-sm">
-                                <i class="fas fa-edit"></i> 
+                            <a href="{{ route('experimentais.atualizarStatus', $experimental) }}" class="btn btn-info btn-sm">
+                                <i class="fas fa-clipboard-check"></i> 
                                 Atualizar
+                            </a>
+
+                            <a href="{{ route('experimentais.edit', $experimental) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> 
+                                Editar
                             </a>
 
                             <form action="{{ route('experimentais.destroy', $experimental) }}" method="post" class="d-inline-block">

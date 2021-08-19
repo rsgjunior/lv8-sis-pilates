@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCorCalendarioToTurmasTable extends Migration
+class AddDiarioRegistradoToAulasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddCorCalendarioToTurmasTable extends Migration
      */
     public function up()
     {
-        Schema::table('turmas', function (Blueprint $table) {
-            $table->string('cor_calendario', 7)->nullable()->after('descricao');
+        Schema::table('aulas', function (Blueprint $table) {
+            $table->boolean('diario_registrado')->default(0)->after('horario_fim');
         });
     }
 
@@ -25,8 +25,8 @@ class AddCorCalendarioToTurmasTable extends Migration
      */
     public function down()
     {
-        Schema::table('turmas', function (Blueprint $table) {
-            $table->dropColumn('cor_calendario');
+        Schema::table('aulas', function (Blueprint $table) {
+            $table->dropColumn('diario_registrado');
         });
     }
 }

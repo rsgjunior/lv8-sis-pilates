@@ -73,13 +73,15 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     // Rotas Experimentais
-    Route::resource('/experimentais', ExperimentalController::class)->parameters([
+    Route::get('/experimentais/create/{aluno_id}', [ExperimentalController::class, 'create'])->name('experimentais.create');
+    Route::get('/experimentais/atualizar_status/{id}', [ExperimentalController::class, 'atualizarStatus'])->name('experimentais.atualizarStatus');
+    Route::resource('/experimentais', ExperimentalController::class)->except(['create'])->parameters([
         'experimentais' => 'experimental'
     ]);
 
     // Rotas Aulas
     Route::post('/aulas/presencas/{aula_id}', [AulaController::class, 'definirPresencas'])->name('aulas.definirPresencas');
-    Route::post('/aulas/presencas/{aula_id}/adicionar', [AulaController::class, 'adicionarPresenca'])->name('aulas.adicionarPresenca');
+    Route::post('/aulas/presencas/{aula_id}/adicionar', [AulaController::class, 'adicionarPresencas'])->name('aulas.adicionarPresencas');
     Route::delete('/aulas/presencas/{aula_id}/remover/{aluno_id}', [AulaController::class, 'removerPresenca'])->name('aulas.removerPresenca');
     Route::get('/aulas/create/{turma_id}', [AulaController::class, 'create'])->name('aulas.create');
     Route::resource('/aulas', AulaController::class)->except(['edit', 'update', 'create'])->parameters([

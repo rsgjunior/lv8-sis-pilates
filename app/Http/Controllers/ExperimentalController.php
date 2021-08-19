@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreExperimentalRequest;
 use App\Http\Requests\UpdateExperimentalRequest;
+use App\Models\Aluno;
 use App\Models\Experimental;
 use App\Services\AlunoService;
+use Illuminate\Http\Request;
 
 class ExperimentalController extends Controller
 {
@@ -46,9 +48,11 @@ class ExperimentalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($aluno_id)
     {
-        return view('experimentais.create');
+        $aluno = Aluno::findOrFail($aluno_id);
+
+        return view('experimentais.create', compact('aluno'));
     }
 
     /**
@@ -59,22 +63,9 @@ class ExperimentalController extends Controller
      */
     public function store(StoreExperimentalRequest $request)
     {
-        if($aluno = AlunoService::createFromExperimental($request->nome, $request->telefone)){
-            $experimental = Experimental::create([
-                'aluno_id' => $aluno->id,
-                'data' => $request->data,
-                'horario_inicio' => $request->horario_inicio,
-                'horario_fim' => $request->horario_fim,
-                'observacao' => $request->observacao,
-                'cor_calendario' => $request->cor_calendario,
-                'status' => 0
-            ]);
+        $experimental = Experimental::create($request->validated());
 
-            return redirect()->route('experimentais.show', $experimental)->with('success', 'Experimental marcada com sucesso');
-        }else{
-            return back()->with('error', 'Telefone já cadastrado');
-        }
-
+        return redirect()->route('experimentais.show', $experimental)->with('success', 'Experimental marcada com sucesso');
     }
 
     /**
@@ -131,5 +122,11 @@ class ExperimentalController extends Controller
         $experimental->delete();
 
         return redirect()->route('experimentais.index')->with('msg', 'A experimental ' . $experimental->id . ' foi excluída');
+    }
+
+    public function atualizarStatus($id) {
+        $experimental = Experimental::findOrFail($id);
+
+        return view('experimentais.atualizar-status', compact('experimental'));
     }
 }

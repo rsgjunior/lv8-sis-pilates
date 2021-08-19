@@ -24,13 +24,12 @@ class StoreExperimentalRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'required|string|max:200',
-            'telefone' => 'required|string|max:25',
-            'data' => 'required|date|after_or_equal:today',
-            'horario_inicio' => 'required|date_format:H:i',
-            'horario_fim' => 'required|date_format:H:i|after:horario_inicio',
-            'observacao' => 'nullable|string|max:500',
-            'cor_calendario' => 'nullable|string|size:7'
+            'aluno_id'              => 'required|numeric',
+            'data'                  => 'required|date|after_or_equal:today',
+            'horario_inicio'        => 'required|date_format:H:i',
+            'horario_fim'           => 'required|date_format:H:i|after:horario_inicio',
+            'observacao'            => 'nullable|string|max:500',
+            'cor_calendario'        => 'nullable|string|size:7'
         ];
     }
 }

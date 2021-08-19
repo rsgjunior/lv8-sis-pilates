@@ -20,7 +20,7 @@ class CreateAlunosTable extends Migration
             $table->date('data_nascimento')->nullable();
             $table->string('profissao', 45)->nullable();
             $table->string('sexo', 20)->nullable();
-            $table->string('telefone', 25)->unique();
+            $table->string('telefone', 11);
             $table->string('cep', 8)->nullable();
             $table->string('endereco_rua', 50)->nullable();
             $table->string('endereco_numero', 10)->nullable();

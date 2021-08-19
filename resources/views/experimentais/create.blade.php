@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-6">
             <div class="float-sm-right">
-                {{ Breadcrumbs::render('experimentais.create') }}
+                {{ Breadcrumbs::render('experimentais.create', $aluno) }}
             </div>
         </div>
     </div>
@@ -28,35 +28,36 @@
 
         <form role="form" action="{{ route('experimentais.store') }}" method="post">
             @csrf
+            <input type="hidden" name="aluno_id" value="{{ $aluno->id }}">
             <div class="card-body">
                 <div class="form-group row">
                     <label for="inputNome" class="col-sm-2 col-form-label">Nome Completo</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputNome" value="{{ old('nome') }}" name="nome" placeholder="Insira o nome" required>
+                        <input type="text" class="form-control" id="inputNome" value="{{ $aluno->nome }}" disabled>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="inputTelefone" class="col-sm-2 col-form-label">Telefone</label>
                     <div class="col-sm-10">
-                        <input type="tel" class="form-control" id="inputTelefone" value="{{ old('telefone') }}" name="telefone" placeholder="Insira o telefone" required>
+                        <input type="tel" class="form-control" id="inputTelefone" value="{{ $aluno->telefone }}" disabled>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="inputData" class="col-sm-2 col-form-label">Data</label>
+                    <label for="inputData" class="col-sm-2 col-form-label text-danger">Data *</label>
                     <div class="col-sm-10">
                         <input type="date" class="form-control" id="inputData" value="{{ old('data') }}" name="data" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="inputHorarioInicio" class="col-sm-2 col-form-label">Horário Início</label>
+                    <label for="inputHorarioInicio" class="col-sm-2 col-form-label text-danger">Horário Início *</label>
                     <div class="col-sm-4">
                         <input type="time" class="form-control" id="inputHorarioInicio" value="{{ old('horario_inicio') }}" name="horario_inicio" required>
                     </div>
                     <div class="col-sm-2">
-                        <label for="inputHorarioFim" class="col-form-label float-right">Horário Fim</label>
+                        <label for="inputHorarioFim" class="col-form-label float-right text-danger">Horário Fim *</label>
                     </div>
                     <div class="col-sm-4">
                         <input type="time" class="form-control" id="inputHorarioFim" value="{{ old('horario_fim') }}" name="horario_fim" required>

@@ -112,9 +112,9 @@ Breadcrumbs::for('experimentais.index', function (BreadcrumbTrail $trail) {
 });
 
 // Home > Experimentais > Nova
-Breadcrumbs::for('experimentais.create', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('experimentais.create', function (BreadcrumbTrail $trail, $aluno) {
     $trail->parent('experimentais.index');
-    $trail->push('Cadastrar nova', route('experimentais.create'));
+    $trail->push($aluno->nome, route('experimentais.create', $aluno));
 });
 
 // Home > Experimentais > $experimental
@@ -127,6 +127,12 @@ Breadcrumbs::for('experimentais.show', function (BreadcrumbTrail $trail, $experi
 Breadcrumbs::for('experimentais.edit', function (BreadcrumbTrail $trail, $experimental) {
     $trail->parent('experimentais.show', $experimental);
     $trail->push('Editar', route('experimentais.edit', $experimental));
+});
+
+// Home > Experimentais > $experimental > Atualizar
+Breadcrumbs::for('experimentais.atualizarStatus', function (BreadcrumbTrail $trail, $experimental) {
+    $trail->parent('experimentais.show', $experimental);
+    $trail->push('Atualizar', route('experimentais.atualizarStatus', $experimental));
 });
 
 // Home > Calendário

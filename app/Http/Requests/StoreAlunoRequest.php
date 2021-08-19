@@ -26,7 +26,7 @@ class StoreAlunoRequest extends FormRequest
         return [
             'nome'                  => 'required|string|max:200',
             'email'                 => 'nullable|email|max:120',
-            'telefone'              => 'required|min:8|max:25',
+            'telefone'              => 'required|numeric|digits_between:10,11',
             'data_nascimento'       => 'nullable|before_or_equal:today',
             'profissao'             => 'nullable|string|max:45',
             'sexo'                  => 'nullable|max:20',

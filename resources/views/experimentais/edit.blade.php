@@ -5,7 +5,7 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-md-6">
-            <h1>Atualizar experimental - {{ $experimental->aluno->nome }}</h1>
+            <h1>Editar experimental - {{ $experimental->aluno->nome }}</h1>
         </div>
         <div class="col-md-6">
             <div class="float-sm-right">
@@ -45,19 +45,19 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="inputData" class="col-sm-2 col-form-label">Data</label>
+                    <label for="inputData" class="col-sm-2 col-form-label text-danger">Data *</label>
                     <div class="col-sm-10">
                         <input type="date" class="form-control" id="inputData" value="{{ $experimental->data }}" name="data" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="inputHorarioInicio" class="col-sm-2 col-form-label">Horário Início</label>
+                    <label for="inputHorarioInicio" class="col-sm-2 col-form-label text-danger">Horário Início *</label>
                     <div class="col-sm-4">
                         <input type="time" class="form-control" id="inputHorarioInicio" value="{{ date('H:i', strtotime($experimental->horario_inicio)) }}" name="horario_inicio" required>
                     </div>
                     <div class="col-sm-2">
-                        <label for="inputHorarioFim" class="col-form-label float-right">Horário Fim</label>
+                        <label for="inputHorarioFim" class="col-form-label float-right text-danger">Horário Fim *</label>
                     </div>
                     <div class="col-sm-4">
                         <input type="time" class="form-control" id="inputHorarioFim" value="{{ date('H:i', strtotime($experimental->horario_fim)) }}" name="horario_fim" required>
@@ -74,23 +74,6 @@
                 <div class="form-group">
                     <label for="inputObservacao">Observação</label>
                     <textarea class="form-control" name="observacao" id="inputObservacao" cols="30" rows="5">{{ $experimental->observacao }}</textarea>
-                </div>
-
-                <p class="lead">Preenchimento posterior</p>
-
-                <div class="form-group">
-                    <label for="selectStatus">Status</label>
-                    <select name="status" id="selectStatus" class="form-control">
-                        <option value="0" {{ $experimental->status == 0 ? 'selected' : ''}}>Marcada</option>
-                        <option value="1" {{ $experimental->status == 1 ? 'selected' : ''}}>Realizou</option>
-                        <option value="2" {{ $experimental->status == 2 ? 'selected' : ''}}>Matriculou</option>
-                        <option value="3" {{ $experimental->status == 3 ? 'selected' : ''}}>Não compareceu</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputFeedback">Feedback</label>
-                    <textarea class="form-control" name="feedback" id="inputFeedback" placeholder="Insira o feedback do aluno sobre a aula experimental" cols="30" rows="5">{{ $experimental->feedback }}</textarea>
                 </div>
 
             </div>
