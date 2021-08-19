@@ -9,7 +9,7 @@ use App\Http\Controllers\HorarioTurmaController;
 use App\Http\Controllers\ObservacaoController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TurmaController;
-use App\Models\Aula;
+
 use Illuminate\Support\Facades\Route;
 
 /*

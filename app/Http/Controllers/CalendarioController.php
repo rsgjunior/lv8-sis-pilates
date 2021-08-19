@@ -15,19 +15,13 @@ class CalendarioController extends Controller
          * Por padrão carrega do mês anterior até o mês seguinte da data
          * atual. O usuário pode mudar via form GET na página.
          */
-        $data_inicio_pesquisa = request('data_inicio');
-        $data_fim_pesquisa = request('data_fim');
+        $data_inicio = request('data_inicio') ? request('data_inicio') : Carbon::today()->subMonth();
+        $data_fim = request('data_fim') ? request('data_fim') : Carbon::today()->addMonth();
 
-        $data_inicio = $data_inicio_pesquisa ? $data_inicio_pesquisa : Carbon::today()->subMonth();
-        $data_fim = $data_fim_pesquisa ? $data_fim_pesquisa : Carbon::today()->addMonth();
-
-        /**
-         * Define o que será exibido no calendário
-         */
+        // Define o que será exibido no calendário
         $esconderTurmas = request('esconderTurmas') ? TRUE : FALSE;
         $esconderExperimentais = request('esconderExperimentais') ? TRUE : FALSE;
 
-        // Inicia o array de eventos vazio
         $eventos = [];
 
         // Carrega as turmas do banco e adiciona no calendário

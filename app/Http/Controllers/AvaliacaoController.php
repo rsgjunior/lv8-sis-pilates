@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateAvaliacaoRequest;
 use App\Models\Aluno;
 use App\Models\Avaliacao;
 use App\Models\Exame;
-use Illuminate\Http\Request;
 
 class AvaliacaoController extends Controller
 {
