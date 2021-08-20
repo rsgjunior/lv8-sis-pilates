@@ -8,8 +8,6 @@ use App\Http\Requests\StoreAulaRequest;
 use App\Models\Aluno;
 use App\Models\Aula;
 use App\Models\Turma;
-use App\Services\AlunoService;
-use Illuminate\Http\Request;
 
 class AulaController extends Controller
 {
@@ -81,6 +79,8 @@ class AulaController extends Controller
     {
         $aula = Aula::findOrFail($id);
 
+        if($aula->diario_registrado) return back()->with('error', 'O diário dessa aula já foi definido, não é possível remover a aula');
+
         $aula->delete();
 
         return redirect(route('turmas.show', $aula->turma));
@@ -90,6 +90,8 @@ class AulaController extends Controller
     {
         $aula = Aula::findOrFail($aula_id);
 
+        if($aula->diario_registrado) return back()->with('error', 'O diário dessa aula já foi definido');
+
         foreach($request->alunos as $aluno) {
             $aula->alunos()->updateExistingPivot($aluno['id'], [
                 'presente' => $aluno['presente'],
@@ -97,12 +99,16 @@ class AulaController extends Controller
             ]);
         }
 
+        $aula->update(['diario_registrado' => 1]);
+
         return back()->with('success', 'Presenças definidas com sucesso!');
     }
 
     public function adicionarPresencas(AdicionarPresencasRequest $request, $aula_id)
     {
         $aula = Aula::findOrFail($aula_id);
+
+        if($aula->diario_registrado) return back()->with('error', 'O diário dessa aula já foi definido, não é possível adicionar mais alunos');
 
         foreach($request->alunos_id as $aluno_id) {
             $aula->alunos()->attach($aluno_id, ['origem' => 'manual']);
@@ -114,6 +120,8 @@ class AulaController extends Controller
     public function removerPresenca($aula_id, $aluno_id) 
     {
         $aula = Aula::findOrFail($aula_id);
+
+        if($aula->diario_registrado) return back()->with('error', 'O diário dessa aula já foi definido, não é possível remover mais alunos');
 
         $aula->alunos()->detach($aluno_id);
 

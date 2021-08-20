@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DefinirPresencasRequest extends FormRequest
 {
@@ -25,7 +26,10 @@ class DefinirPresencasRequest extends FormRequest
     {
         return [
             'alunos' => 'required|array',
-            'alunos.*' => 'required|array:id,presente,motivo_falta'
+            'alunos.*' => 'required|array:id,presente,motivo_falta',
+            'alunos.*.id' => 'required|numeric',
+            'alunos.*.motivo_falta' => 'nullable|string',
+            'alunos.*.presente' => ['required', Rule::in([1, 2])]
         ];
     }
 }

@@ -18,29 +18,11 @@ class ExperimentalController extends Controller
      */
     public function index()
     {
-        $criterio = request('criterio');
-        $pesquisa = request('pesquisa');
+        $experimentais = Experimental::all();
 
-        /**
-         * Critérios para a busca
-         * Formato: "Nome da Option HTML" => "nome da coluna no banco"
-         */
-        $criteriosValidos = [
-            "CPF" => "cpf",
-            "RG" => "rg",
-            "Nome" => "nome",
-            "E-mail" => "email"
-        ];
+        $qtdExperimentais = count($experimentais);
 
-        if($pesquisa) {
-            $experimentais = Experimental::where($criterio, 'LIKE', '%' . $pesquisa . '%')->paginate(10);
-        }else {
-            $experimentais = Experimental::orderBy('data', 'DESC')->paginate(10);
-        }
-
-        $qtdExperimentais = Experimental::count();
-
-        return view('experimentais.index', compact('experimentais', 'qtdExperimentais', 'criterio', 'pesquisa'));
+        return view('experimentais.index', compact('experimentais', 'qtdExperimentais'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\DateService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,4 +26,37 @@ class Aula extends Model
                         ->withTimestamps();
     }
 
+    // Métodos
+    public function getQtdAlunosPresentesAttribute() {
+        $count = 0;
+
+        foreach($this->alunos as $aluno) {
+            if($aluno->diario->presente == 1) $count++;
+        }
+
+        return $count;
+    }
+
+    public function getQtdAlunosFaltantesAttribute() {
+        $count = 0;
+
+        foreach($this->alunos as $aluno) {
+            if($aluno->diario->presente == 2) $count++;
+        }
+
+        return $count;
+    }
+
+    public function getDiaDaSemanaStrAttribute() {
+        return DateService::getDiaDaSemanaStr($this->data);
+    }
+
+    public function getDiarioRegistradoBadgeAttribute() {
+        $badges = [
+            "<span class='badge badge-danger'>Não Registrado</span>",
+            "<span class='badge badge-success'>Registrado</span>",
+        ];
+
+        return $badges[$this->diario_registrado];
+    }
 }

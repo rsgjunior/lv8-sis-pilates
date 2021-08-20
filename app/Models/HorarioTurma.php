@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\DateService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,33 +21,6 @@ class HorarioTurma extends Model
 
     // Métodos
     public function getDiaDaSemanaStrAttribute() {
-        switch($this->dia_da_semana){
-            case 0:
-                $str_dia_da_semana = 'Domingo';
-                break;
-            case 1:
-                $str_dia_da_semana = 'Segunda-Feira';
-                break;
-            case 2:
-                $str_dia_da_semana = 'Terça-Feira';
-                break;
-            case 3:
-                $str_dia_da_semana = 'Quarta-Feira';
-                break;
-            case 4:
-                $str_dia_da_semana = 'Quinta-Feira';
-                break;
-            case 5:
-                $str_dia_da_semana = 'Sexta-Feira';
-                break;
-            case 6:
-                $str_dia_da_semana = 'Sábado';
-                break;
-            default:
-                $str_dia_da_semana = 'Inválido';
-                break;
-        }
-
-        return $str_dia_da_semana;
+        return DateService::getDiaDaSemanaStr($this->dia_da_semana, true);
     }
 }

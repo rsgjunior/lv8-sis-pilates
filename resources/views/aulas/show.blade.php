@@ -18,6 +18,8 @@
 @section('content')
 
     @include('parciais.validation-errors')
+    @include('aulas.presencas-modal')
+    @include('aulas.adicionar-presenca-modal')
 
     <div class="row">
         <div class="col-12">
@@ -27,15 +29,17 @@
                     <div class="col-12">
                         <h4 class="mb-3">
                             <i class="fas fa-users"></i> Alunos esperados para aula
-                            <small class="float-right">
-                                <button class="btn btn-outline-success" data-toggle="modal"
-                                    data-target="#adicionarPresencaModal">
-                                    <i class="fas fa-plus-circle"></i> Adicionar aluno
-                                </button>
-                                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#presencasModal">
-                                    <i class="fas fa-check-circle"></i> Definir presenças
-                                </button>
-                            </small>
+							@if (!$aula->diario_registrado)	
+								<small class="float-right">
+									<button class="btn btn-outline-success" data-toggle="modal"
+										data-target="#adicionarPresencaModal">
+										<i class="fas fa-plus-circle"></i> Adicionar aluno
+									</button>
+									<button class="btn btn-outline-primary" data-toggle="modal" data-target="#presencasModal">
+										<i class="fas fa-check-circle"></i> Definir presenças
+									</button>
+								</small>
+							@endif
                         </h4>
                     </div>
                     <!-- /.col -->
@@ -108,8 +112,22 @@
 
                 <div class="row">
                     <div class="col-6">
+                        <p class="lead">Diário</p>
+                        <p>
+                            <strong>Definido em:</strong>
+                            @if ($aula->diario_registrado)
+                                {{ date('d/m/Y, H:i', strtotime($aula->updated_at)) }}
+                            @else
+								Ainda não foi definido
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
                         <p class="lead">Informações da aula</p>
-                        <p><strong>Data:</strong> {{ date('d/m/Y', strtotime($aula->data)) }}</p>
+                        <p><strong>Data:</strong> {{ date('d/m/Y', strtotime($aula->data)) }}, {{ $aula->dia_da_semana_str }}</p>
                         <p><strong>Horário Início:</strong> {{ $aula->horario_inicio }}</p>
                         <p><strong>Horário Fim:</strong> {{ $aula->horario_fim }} </p>
                     </div>
@@ -137,8 +155,7 @@
         </div><!-- /.col -->
     </div>
 
-    @include('aulas.presencas-modal')
-    @include('aulas.adicionar-presenca-modal')
+
 
 @stop
 

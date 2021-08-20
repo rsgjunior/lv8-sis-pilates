@@ -17,19 +17,12 @@ class TurmaController extends Controller
      */
     public function index()
     {
-        $pesquisa = request('pesquisa');
+        $turmas = Turma::all();
 
-        if ($pesquisa) {
-            $turmas = Turma::where('nome', 'LIKE', '%' . $pesquisa . '%')->paginate(15);
-        } else {
-            $turmas = Turma::paginate(15);
-        }
-
-        $qtdTurmas = Turma::count();
+        $qtdTurmas = count($turmas);
 
         return view('turmas.index', [
             'turmas' => $turmas,
-            'pesquisa' => $pesquisa,
             'qtdTurmas' => $qtdTurmas
         ]);
     }
@@ -59,14 +52,14 @@ class TurmaController extends Controller
         $alunos = Aluno::orderBy('nome')->get();
         $professores = Professor::orderBy('nome')->get();
         $horarios = $turma->horarios()->orderBy('dia_da_semana')->get();
-        $ultimasAulas = $turma->aulas()->orderBy('data', 'desc')->limit(3)->get();
+        $aulas = $turma->aulas()->with('alunos')->get();
 
         return view('turmas.show', compact(
             'turma', 
             'alunos', 
             'professores', 
             'horarios', 
-            'ultimasAulas'
+            'aulas'
         ));
     }
 
